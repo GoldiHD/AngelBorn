@@ -39,7 +39,7 @@ namespace AngelBorn.Grapihcs.MapGra
                         switch (CurrentMap.Tiles[(StartDrawingPos.X + x), (StartDrawingPos.Y + y)].MyType)
                         {
                             case TileType.Inpassable:
-                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.ForegroundColor = ConsoleColor.DarkBlue;
                                 Console.Write(" #");
                                 Console.ForegroundColor = ConsoleColor.White;
                                 break;

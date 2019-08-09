@@ -26,7 +26,7 @@ namespace AngelBorn.Menus
             do
             {
                 CW.Clear();
-                CW.WriteSlowNL("Now Please select a class from this list", 20);
+                CW.WriteSlowNL("Now Please select a Race from this list", 20);
                 for(int i = 0; i < PlayerRace.races.Count; i++)
                 {
                     CW.WriteLine(PlayerRace.races[i].Name + " [" + PlayerRace.races[i].selectSign + "]");
