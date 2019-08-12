@@ -83,7 +83,6 @@ namespace AngleBorn.Player
                     {
                         CityTile CT = (CityTile)SingleTon.GetCursorInstance().CurrentTile;
                         SingleTon.GetMapManagerInstance().CurrentMap = CT.LoadMap();
-                        ConsoleColor.
                     return true;
                     }
                     else
