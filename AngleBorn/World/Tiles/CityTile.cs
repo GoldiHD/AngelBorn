@@ -17,7 +17,9 @@ namespace AngelBorn.World.Tiles
 
         public CityTile CopyOf(CityTile _base, Map _CityMap)
         {
+            
             base.CopyOf((BaseTile)_base);
+            MyType = TileType.Town;
             CityName = _base.CityName;
             CityMap = _CityMap;
             return this;

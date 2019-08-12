@@ -49,13 +49,16 @@ namespace AngelBorn.World
             Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Forest", Description = "Are normal forest you're likely to find things here", Walkable = true });
             //Tiles.Add()
             Towns.Add(new CityTile("Town"));
+
+
+
         }
 
         private void CreateMaps()
         {
             //World Map
             Maps.Add(new Map(new Cord() { X = 300, Y = 300 }));
-            MapCreators.Add(Maps[Maps.Count - 1].GenerateMapThread(new List<BaseTile> { Tiles[0] }, new List<CityTile> { Towns[0] }, new List<Enemies.Enemy> { }));
+            MapCreators.Add(Maps[Maps.Count - 1].GenerateMapThread(new List<BaseTile> { Tiles[0] }, new List<CityTile> { Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], }, new List<Enemies.Enemy> { }));
         }
     }
 }

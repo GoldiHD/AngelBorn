@@ -181,6 +181,8 @@ namespace AngelBorn.World
                     if (Tiles[cord.X, cord.Y].MyType == TileType.Normal)
                     {
                         Tiles[cord.X, cord.Y] = new CityTile().CopyOf(_Locations[i], this);
+                        Tiles[cord.X, cord.Y].Pos = cord;
+
                         roomFound = true;
                     }
                 }

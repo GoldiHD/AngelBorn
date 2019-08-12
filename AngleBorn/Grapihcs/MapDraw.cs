@@ -15,11 +15,15 @@ namespace AngelBorn.Grapihcs.MapGra
         public void DrawMap()
         {
             CurrentMap = SingleTon.GetMapManagerInstance().CurrentMap;
-            if (WithInBorder(Axis.Y) && WithInBorder(Axis.X))
+            if (WithInBorder(Axis.Y))
             {
-                StartDrawingPos.X = SingleTon.GetCursorInstance().Pos.X - ((ViewSize.X / 2));
                 StartDrawingPos.Y = SingleTon.GetCursorInstance().Pos.Y - ((ViewSize.Y / 2));
             }
+            if(WithInBorder(Axis.X))
+            {
+                StartDrawingPos.X = SingleTon.GetCursorInstance().Pos.X - ((ViewSize.X / 2));
+            }
+
             CW.SetPos(1, 1);
             CW.Write("[X: " + SingleTon.GetCursorInstance().Pos.X + " | Y: " + SingleTon.GetCursorInstance().Pos.Y + "]");
             CW.SetPos(1, 2);

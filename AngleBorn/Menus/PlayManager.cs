@@ -43,6 +43,10 @@ namespace AngleBorn.Menus
                     case PlayerState.Combat:
 
                         break;
+
+                    case PlayerState.Menu:
+
+                        break;
                 }
             }
         }
@@ -50,6 +54,6 @@ namespace AngleBorn.Menus
 
     enum PlayerState
     {
-        WorldMap, SubMap, Combat, Store
+        WorldMap, SubMap, Combat, Store, Menu
     }
 }

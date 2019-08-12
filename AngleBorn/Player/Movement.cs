@@ -1,6 +1,7 @@
 ﻿using AngelBorn.Grapihcs;
 using AngelBorn.Grapihcs.MapGra;
 using AngelBorn.Tools;
+using AngelBorn.World.Tiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,9 +67,9 @@ namespace AngleBorn.Player
 
                 case ConsoleKey.S:
                     DrawStats = !DrawStats;
-                    if(DrawStats)
+                    if (DrawStats)
                     {
-                        statsD.Draw(CW.GetPos().X + (MapD.ViewSize.X* 2) + 6, 2);
+                        statsD.Draw(CW.GetPos().X + (MapD.ViewSize.X * 2) + 6, 2);
                         return false;
                     }
                     else
@@ -76,9 +77,19 @@ namespace AngleBorn.Player
                         CW.Clear();
                         return true;
                     }
-                    
+
+                case ConsoleKey.Enter:
+                    if (SingleTon.GetCursorInstance().CurrentTile is CityTile)
+                    {
+                        CityTile CT = (CityTile)SingleTon.GetCursorInstance().CurrentTile;
+                        SingleTon.GetMapManagerInstance().CurrentMap = CT.LoadMap();
+                        ConsoleColor.
                     return true;
-                    break;
+                    }
+                    else
+                    {
+                        return false;
+                    }
 
                 default:
                     return false;
