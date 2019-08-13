@@ -8,7 +8,6 @@ namespace AngelBorn.World.Tiles
     {
         private Map CityMap;
         public string CityName;
-        public Cord Pos;
 
         public Map LoadMap()
         {

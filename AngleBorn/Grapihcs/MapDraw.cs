@@ -1,5 +1,6 @@
 ﻿using AngelBorn.Tools;
 using AngelBorn.World;
+using AngelBorn.World.Tiles;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,7 @@ namespace AngelBorn.Grapihcs.MapGra
         private Map CurrentMap;
         public Cord ViewSize = new Cord() { X = 21 , Y = 21 }; //always take uneven numbers
         private Cord StartDrawingPos = new Cord();
+        private string Town= "";
 
         public void DrawMap()
         {
@@ -66,9 +68,23 @@ namespace AngelBorn.Grapihcs.MapGra
                 }
                 CW.WriteLine("");
                 CW.Write(" ");
+                
             }
 
+            if (SingleTon.GetCursorInstance().CurrentTile is CityTile)
+            {
+                CityTile CT = (CityTile)SingleTon.GetCursorInstance().CurrentTile;
+                Town = "You have arrived at " + CT.CityName;
+                CW.WriteLine(Town);
+            }
+            else
+            {
+                for(int u = 0; u < Town.Length; u++)
+                {
+                    CW.Write(" ");
+                }
 
+            }
         }
 
         private bool WithInBorder(Axis axis)
