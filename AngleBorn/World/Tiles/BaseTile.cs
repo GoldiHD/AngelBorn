@@ -34,7 +34,9 @@ namespace AngelBorn.World
     {
         Normal,
         Inpassable,
-        Town
+        Town,
+        Dungeon,
+        NPC
 
     }
 }

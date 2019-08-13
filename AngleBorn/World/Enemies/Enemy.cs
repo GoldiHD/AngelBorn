@@ -1,12 +1,12 @@
-﻿using System;
+﻿using AngleBorn.World;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AngelBorn.World.Enemies
 {
-    class Enemy
+    class Enemy : BaseCharacters
     {
-        private int Health;
         private int Damage;
 
     }

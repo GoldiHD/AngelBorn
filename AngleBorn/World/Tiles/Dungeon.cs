@@ -11,7 +11,7 @@ namespace AngleBorn.World.Tiles
     {
         public Dungeon()
         {
-
+            MyType = TileType.Dungeon;
         }
     }
 }

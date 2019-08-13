@@ -27,14 +27,21 @@ namespace AngelBorn.Grapihcs.MapGra
             }
 
             CW.SetPos(1, 1);
-            CW.Write("[X: " + SingleTon.GetCursorInstance().Pos.X + " | Y: " + SingleTon.GetCursorInstance().Pos.Y + "]");
+            string deleteLeftOver = "";
+            for(int p = 0; p < ViewSize.X * 2; p++)
+            {
+                deleteLeftOver += " ";
+            }
+            CW.Write(deleteLeftOver);
+            CW.SetPos(1, 1);
+            CW.Write("[X: " + SingleTon.GetCursorInstance().Pos.X + " | Y: " + SingleTon.GetCursorInstance().Pos.Y + "] {" + SingleTon.GetCursorInstance().CurrentTile.TileName + "}");
             CW.SetPos(1, 2);
             for (int y = 0; y < ViewSize.Y; y++)
             {
                 for (int x = 0; x < ViewSize.X; x++)
                 {
 
-                    if (StartDrawingPos.X + x == SingleTon.GetCursorInstance().Pos.X && StartDrawingPos.Y + y == SingleTon.GetCursorInstance().Pos.Y)
+                    if (StartDrawingPos.X + x == SingleTon.GetCursorInstance().Pos.X && StartDrawingPos.Y + y == SingleTon.GetCursorInstance().Pos.Y && !(SingleTon.GetCursorInstance().CurrentTile is CityTile))
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write(" O");
@@ -58,8 +65,26 @@ namespace AngelBorn.Grapihcs.MapGra
 
 
                             case TileType.Town:
-                                Console.ForegroundColor = ConsoleColor.Magenta;
+                                
+                                if (StartDrawingPos.X + x == SingleTon.GetCursorInstance().Pos.X && StartDrawingPos.Y + y == SingleTon.GetCursorInstance().Pos.Y)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Magenta;
+                                }
                                 Console.Write(" @");
+                                Console.ForegroundColor = ConsoleColor.White;
+                                break;
+
+                            case TileType.Dungeon:
+                                Console.Write(" Ø");
+                                break;
+
+                            case TileType.NPC:
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.Write(" *");
                                 Console.ForegroundColor = ConsoleColor.White;
                                 break;
                         }
@@ -74,7 +99,7 @@ namespace AngelBorn.Grapihcs.MapGra
             if (SingleTon.GetCursorInstance().CurrentTile is CityTile)
             {
                 CityTile CT = (CityTile)SingleTon.GetCursorInstance().CurrentTile;
-                Town = "You have arrived at " + CT.CityName;
+                Town = "You have arrived at [" + CT.CityName+ "]";
                 CW.WriteLine(Town);
             }
             else

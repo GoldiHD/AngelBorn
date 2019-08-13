@@ -37,6 +37,7 @@ namespace AngelBorn.Menus
                     if(Char.ToLower(input) == Char.ToLower(PlayerRace.races[i].selectSign))
                     {
                         SingleTon.GetPlayerController().PlayerRace = PlayerRace.races[i];
+                        SingleTon.GetPlayerController().PlayerRace.ApplyBonus();
                         Return = true;
                     }
                 }
@@ -58,6 +59,7 @@ namespace AngelBorn.Menus
                     if (Char.ToLower(input) == Char.ToLower(PlayerClass.playerClasses[i].selectSign))
                     {
                         SingleTon.GetPlayerController().PlayerClass = PlayerClass.playerClasses[i];
+                        SingleTon.GetPlayerController().PlayerClass.ApplyBonus();
                         Return = true;
                     }
                 }

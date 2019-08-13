@@ -1,8 +1,12 @@
 ﻿using AngelBorn.Tools;
 using AngelBorn.World.Enemies;
 using AngelBorn.World.Tiles;
+using AngleBorn.World;
+using AngleBorn.World.NPCS;
+using AngleBorn.World.Tiles;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -18,7 +22,7 @@ namespace AngelBorn.World
             Tiles = new BaseTile[mapSize.X, mapSize.Y];
         }
 
-        public Thread GenerateMapThread(List<BaseTile> tiles, List<CityTile> Locations, List<Enemy> SpawnAbleEnemies)
+        public Thread GenerateMapThread(List<BaseTile> tiles, List<CityTile> Locations, List<BaseCharacters> SpawnAbleEnemies, int amountOfDungeon)
         {
 
             Thread Generator;
@@ -28,18 +32,40 @@ namespace AngelBorn.World
             MD.tiles = tiles;
             MD.SpawnAbleEnemies = SpawnAbleEnemies;
             Generator.Name = "Map";
+            MD.AmountOfDungeon = amountOfDungeon;
             Generator.Start(MD);
 
             return Generator;
         }
 
-        void GenerateMap(object MD)
+        public Thread GenerateMapThread(List<BaseTile> tiles, List<BaseCharacters> npcs)
+        {
+
+            Thread Generator;
+            Generator = new Thread(new ParameterizedThreadStart(GenerateTown));
+            MapData MD;
+            MD.Locations = new List<CityTile>();
+            MD.tiles = tiles;
+            MD.SpawnAbleEnemies = npcs;
+            MD.AmountOfDungeon = 0;
+            Generator.Name = "Map";
+            Generator.Start(MD);
+
+            return Generator;
+        }
+
+        private void GenerateTown(object MD)
+        {
+
+        }
+
+        private void GenerateMap(object MD)
         {
             List<BaseTile> FullArray = new List<BaseTile>();
             MapData Temp = (MapData)MD;
             List<BaseTile> tiles = Temp.tiles;
             List<CityTile> Locations = Temp.Locations;
-            List<Enemy> SpawnAbleEnemies = Temp.SpawnAbleEnemies;
+            List<Enemy> SpawnAbleEnemies = Temp.SpawnAbleEnemies.Select(x => new Enemy()).ToList();
             List<int> Sides;
             Cord Test;
             bool RoomFound = false;
@@ -120,16 +146,17 @@ namespace AngelBorn.World
                     }
                 }
             }
+            SetDungeons(Temp.AmountOfDungeon);
             FillLocations(Locations);
         }
 
         public void SetPlayerSpawn()
         {
             Cord Location;
-            while(true)
+            while (true)
             {
                 Location = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
-                if(Tiles[Location.X, Location.Y].MyType == TileType.Normal)
+                if (Tiles[Location.X, Location.Y].MyType == TileType.Normal)
                 {
 
                     SingleTon.GetCursorInstance().CurrentTile = Tiles[Location.X, Location.Y];
@@ -157,13 +184,34 @@ namespace AngelBorn.World
         private Cord SetRelativeRoom()
         {
             Cord NewCord;
-            while(true)
+            while (true)
             {
                 NewCord = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
-                if(Tiles[NewCord.X, NewCord.Y].MyType == TileType.Normal)
+                if (Tiles[NewCord.X, NewCord.Y].MyType == TileType.Normal)
                 {
                     return NewCord;
                 }
+            }
+        }
+
+        private void SetDungeons(int amount)
+        {
+            Cord cord;
+            bool roomFound;
+            for (int i = 0; i < amount; i++)
+            {
+                roomFound = false;
+                do
+                {
+                    cord = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
+                    if (Tiles[cord.X, cord.Y].MyType == TileType.Normal)
+                    {
+                        Tiles[cord.X, cord.Y] = new Dungeon();
+                        Tiles[cord.X, cord.Y].Pos = cord;
+
+                        roomFound = true;
+                    }
+                } while (!roomFound);
             }
         }
 
@@ -208,9 +256,9 @@ namespace AngelBorn.World
         #region MovementChecking
         public bool CheckLocation(int x, int y)
         {
-            if(x > 0 && x < MapSize.X && y > 0 && y < MapSize.Y)
+            if (x > 0 && x < MapSize.X && y > 0 && y < MapSize.Y)
             {
-                if(Tiles[x,y].MyType != TileType.Inpassable)
+                if (Tiles[x, y].MyType != TileType.Inpassable)
                 {
                     return true;
                 }
@@ -224,6 +272,7 @@ namespace AngelBorn.World
     {
         public List<BaseTile> tiles;
         public List<CityTile> Locations;
-        public List<Enemy> SpawnAbleEnemies;
+        public List<BaseCharacters> SpawnAbleEnemies;
+        public int AmountOfDungeon;
     }
 }

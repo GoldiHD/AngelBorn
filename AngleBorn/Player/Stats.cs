@@ -27,11 +27,32 @@ namespace AngelBorn.Player
         public int _lvl { get; private set; }
         public int ExtraAttack { get; private set; }
         public Power(int lvl)
-        {
-            
+        {    
             _lvl = lvl;
+            AddBonus();
+        }
+
+        public void AddPoint()
+        {
+            _lvl++;
+            AddBonus();
+        }
+
+        public void AddPoint(int Amount)
+        {
+            _lvl += Amount;
+            AddBonus();
+        }
+
+        private void AddBonus()
+        {
+            if(_lvl < 0 )
+            {
+                _lvl = 0;
+            }
             ExtraAttack = _lvl / 5;
         }
+
     }
 
     public class Vitallity //health
@@ -44,12 +65,33 @@ namespace AngelBorn.Player
         public Vitallity(int lvl)
         {
             _lvl = lvl;
+            AddBonus();
+        }
+
+        public void AddPoint()
+        {
+            _lvl++;
+            AddBonus();
+        }
+
+        public void AddPoint(int Amount)
+        {
+            _lvl += Amount;
+            AddBonus();
+        }
+
+        private void AddBonus()
+        {
+            if (_lvl < 0)
+            {
+                _lvl = 0;
+            }
             Health = _lvl * 5;
             HealthCurrent = Health;
         }
     }
 
-    public class Magic //magic damage and mana
+    public class Magic //mana
     {
         public int Mana { get; private set; }
         public int ManaCurrent { get; private set; }
@@ -58,6 +100,27 @@ namespace AngelBorn.Player
         public Magic(int lvl)
         {
             _lvl = lvl;
+            AddBonus();
+        }
+
+        public void AddPoint()
+        {
+            _lvl++;
+            AddBonus();
+        }
+
+        public void AddPoint(int Amount)
+        {
+            _lvl += Amount;
+            AddBonus();
+        }
+
+        private void AddBonus()
+        {
+            if (_lvl < 0)
+            {
+                _lvl = 0;
+            }
             Mana = _lvl * 5;
             ManaCurrent = Mana;
         }
@@ -72,6 +135,27 @@ namespace AngelBorn.Player
         public Luck(int lvl)
         {
             _lvl = lvl;
+            AddBonus();
+        }
+
+        public void AddPoint()
+        {
+            _lvl++;
+            AddBonus();
+        }
+
+        public void AddPoint(int Amount)
+        {
+            _lvl += Amount;
+            AddBonus();
+        }
+
+        private void AddBonus()
+        {
+            if (_lvl < 0)
+            {
+                _lvl = 0;
+            }
             critChanceInPercentage = _lvl / 2;
         }
     }

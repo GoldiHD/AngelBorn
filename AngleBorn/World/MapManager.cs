@@ -1,5 +1,6 @@
 ﻿using AngelBorn.Tools;
 using AngelBorn.World.Tiles;
+using AngleBorn.World;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -12,6 +13,7 @@ namespace AngelBorn.World
         public Map CurrentMap;
         public List<CityTile> Towns;
         public List<Thread> MapCreators;
+        public List<Map> Dungeons { get; private set; }
         public MapManager()
         {
             MapCreators = new List<Thread>();
@@ -48,7 +50,11 @@ namespace AngelBorn.World
             Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "GrassPlain", Description = "An open field of grass, you're not likely to meet anyone here", Walkable = true });
             Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Forest", Description = "Are normal forest you're likely to find things here", Walkable = true });
             //Tiles.Add()
-            Towns.Add(new CityTile("Town"));
+            Towns.Add(new CityTile("Rakli"));
+            Towns.Add(new CityTile("Guthram"));
+            Towns.Add(new CityTile("Dewsbury"));
+            Towns.Add(new CityTile("Vaxhamn"));
+            Towns.Add(new CityTile("Glossop"));
 
 
 
@@ -56,9 +62,17 @@ namespace AngelBorn.World
 
         private void CreateMaps()
         {
+            //Dungeons
+            Dungeons.Add(new Map(new Cord { X = 40, Y = 40 }));
+
             //World Map
             Maps.Add(new Map(new Cord() { X = 300, Y = 300 }));
-            MapCreators.Add(Maps[Maps.Count - 1].GenerateMapThread(new List<BaseTile> { Tiles[0] }, new List<CityTile> { Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], Towns[0], }, new List<Enemies.Enemy> { }));
+            Maps.Add(new Map(new Cord() { X = 50, Y = 50 }));
+            Maps.Add(new Map(new Cord() { X = 70, Y = 50 }));
+            Maps.Add(new Map(new Cord() { X = 60, Y = 30 }));
+            Maps.Add(new Map(new Cord() { X = 100, Y = 100 }));
+            Maps.Add(new Map(new Cord() { X = 25, Y = 25 }));
+            MapCreators.Add(Maps[0].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<CityTile> { Towns[0],  Towns[1], Towns[2], Towns[3], Towns[4]}, new List<BaseCharacters>(), 20));
         }
     }
 }

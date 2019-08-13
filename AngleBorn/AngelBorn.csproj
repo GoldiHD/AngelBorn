@@ -60,10 +60,12 @@
     <Compile Include="Tools\ConsoleWriter.cs" />
     <Compile Include="Tools\Setup.cs" />
     <Compile Include="Tools\SingleTon.cs" />
+    <Compile Include="World\BaseCharacters.cs" />
     <Compile Include="World\Enemies\Enemy.cs" />
     <Compile Include="World\Enemies\Enemymanager.cs" />
     <Compile Include="World\Map.cs" />
     <Compile Include="World\MapManager.cs" />
+    <Compile Include="World\NPCS\BaseNPC.cs" />
     <Compile Include="World\Tiles\BaseTile.cs" />
     <Compile Include="World\Tiles\CityTile.cs" />
     <Compile Include="World\Tiles\Dungeon.cs" />
