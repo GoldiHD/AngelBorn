@@ -6,28 +6,32 @@ namespace AngelBorn.World.Tiles
 {
     class CityTile : BaseTile
     {
-        private Map CityMap;
-        public string CityName;
+        public Map CityMap { get; private set; }
+        public string CityName { get; private set; }
+        public Map ParrentMap { get; private set; }
 
         public Map LoadMap()
         {
             return CityMap;
         }
 
-        public CityTile CopyOf(CityTile _base, Map _CityMap)
+        public CityTile CopyOf(CityTile _base)
         {
             
             base.CopyOf((BaseTile)_base);
             MyType = TileType.Town;
             CityName = _base.CityName;
-            CityMap = _CityMap;
+            ParrentMap = _base.ParrentMap;
+            CityMap = _base.CityMap;
             return this;
 
         }
 
-        public CityTile(string _cityName)
+        public CityTile(string _cityName, Map _ParrentMap, Map _ChildMap)
         {
             CityName = _cityName;
+            ParrentMap = _ParrentMap;
+            CityMap = _ChildMap;
         }
 
         public CityTile()

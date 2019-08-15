@@ -83,7 +83,9 @@ namespace AngleBorn.Player
                     {
                         CityTile CT = (CityTile)SingleTon.GetCursorInstance().CurrentTile;
                         SingleTon.GetMapManagerInstance().CurrentMap = CT.LoadMap();
-                    return true;
+                        CW.Clear();
+                        new MapDraw().DrawMap();
+                        return true;
                     }
                     else
                     {

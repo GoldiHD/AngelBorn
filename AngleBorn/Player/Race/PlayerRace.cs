@@ -13,9 +13,10 @@ namespace AngelBorn.Player.RaceFolder
         {
             races = new List<Race>();
             races.Add(new Race("Human", 'H', 2,1,0,1));
-            races.Add(new Race("Night Elf with big tar tars", 'E', 1,0,3,0));
+            races.Add(new Race("Elf", 'E', 1,0,3,0));
             races.Add(new Race("Dwarf", 'D',1,3,0,0));
             races.Add(new Race("Goblin",'G',1,1,1,2));
+
         }
     }
 

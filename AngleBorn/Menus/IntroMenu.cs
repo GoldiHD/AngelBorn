@@ -90,7 +90,7 @@ namespace AngelBorn.Menus
             SingleTon.GetMapManagerInstance().SetPlayerSpawn(0);
             CW.Clear();
             CW.WriteSlowNL("Welcome to the adventure", 20);
-            CW.WriteLine("Controls: \nArrows to move\n[S] to open stat block\n@ is villages\nuse enter to enter villages");
+            CW.WriteLine("Controls: \nArrows to move\n[S] to open stat block\n@ is villages\n[Ø]is a dungeon\nuse enter to enter villages or dungeons");
             CW.Write("Press anything to continue");
             CW.ReadKey();
             CW.Clear();
