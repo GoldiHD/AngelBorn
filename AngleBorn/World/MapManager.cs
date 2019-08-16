@@ -81,11 +81,11 @@ namespace AngelBorn.World
             Towns.Add(new CityTile("Glossop", Maps[0], Maps[5]));
 
             MapCreators.Add(Maps[0].GenerateMapThread(new List<BaseTile> { Tiles[1], Tiles[2] }, new List<CityTile> { Towns[0],  Towns[1], Towns[2], Towns[3], Towns[4]}, new List<BaseCharacters>(), 20));
-            MapCreators.Add(Maps[1].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { }, 2));
-            MapCreators.Add(Maps[2].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },2));
-            MapCreators.Add(Maps[3].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },2));
-            MapCreators.Add(Maps[4].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },2));
-            MapCreators.Add(Maps[5].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },2));
+            MapCreators.Add(Maps[1].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { }, 2, Towns[0]));
+            MapCreators.Add(Maps[2].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },2, Towns[1]));
+            MapCreators.Add(Maps[3].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },2, Towns[2]));
+            MapCreators.Add(Maps[4].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },2, Towns[3]));
+            MapCreators.Add(Maps[5].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },2, Towns[4]));
         }
     }
 }

@@ -9,6 +9,7 @@ namespace AngelBorn.Player
 {
     class PlayerController
     {
+        public int Steps;
         public BaseClass PlayerClass;
         public Race PlayerRace;
         public int Level = 1;

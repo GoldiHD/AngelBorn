@@ -25,6 +25,7 @@ namespace AngleBorn.Player
                     if (SingleTon.GetMapManagerInstance().CurrentMap.CheckLocation(SingleTon.GetCursorInstance().CurrentTile.Pos.X, SingleTon.GetCursorInstance().CurrentTile.Pos.Y - 1))
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X, SingleTon.GetCursorInstance().CurrentTile.Pos.Y - 1];
+                        SingleTon.GetPlayerController().Steps++;
                         return true;
                     }
                     else
@@ -36,6 +37,7 @@ namespace AngleBorn.Player
                     if (SingleTon.GetMapManagerInstance().CurrentMap.CheckLocation(SingleTon.GetCursorInstance().CurrentTile.Pos.X, SingleTon.GetCursorInstance().CurrentTile.Pos.Y + 1))
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X, SingleTon.GetCursorInstance().CurrentTile.Pos.Y + 1];
+                        SingleTon.GetPlayerController().Steps++;
                         return true;
                     }
                     else
@@ -47,6 +49,7 @@ namespace AngleBorn.Player
                     if (SingleTon.GetMapManagerInstance().CurrentMap.CheckLocation(SingleTon.GetCursorInstance().CurrentTile.Pos.X - 1, SingleTon.GetCursorInstance().CurrentTile.Pos.Y))
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X - 1, SingleTon.GetCursorInstance().CurrentTile.Pos.Y];
+                        SingleTon.GetPlayerController().Steps++;
                         return true;
                     }
                     else
@@ -58,6 +61,7 @@ namespace AngleBorn.Player
                     if (SingleTon.GetMapManagerInstance().CurrentMap.CheckLocation(SingleTon.GetCursorInstance().CurrentTile.Pos.X + 1, SingleTon.GetCursorInstance().CurrentTile.Pos.Y))
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X + 1, SingleTon.GetCursorInstance().CurrentTile.Pos.Y];
+                        SingleTon.GetPlayerController().Steps++;
                         return true;
                     }
                     else
@@ -82,9 +86,9 @@ namespace AngleBorn.Player
                     if (SingleTon.GetCursorInstance().CurrentTile is CityTile)
                     {
                         CityTile CT = (CityTile)SingleTon.GetCursorInstance().CurrentTile;
+                        SingleTon.GetCursorInstance().CurrentTile = CT.CityMap.SpawnPoint;
                         SingleTon.GetMapManagerInstance().CurrentMap = CT.LoadMap();
                         CW.Clear();
-                        new MapDraw().DrawMap();
                         return true;
                     }
                     else

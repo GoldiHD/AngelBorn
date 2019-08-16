@@ -34,7 +34,7 @@ namespace AngelBorn.Grapihcs.MapGra
             }
             CW.Write(deleteLeftOver);
             CW.SetPos(1, 1);
-            CW.Write("[X: " + SingleTon.GetCursorInstance().Pos.X + " | Y: " + SingleTon.GetCursorInstance().Pos.Y + "] {" + SingleTon.GetCursorInstance().CurrentTile.TileName + "}");
+            CW.Write("[X: " + SingleTon.GetCursorInstance().Pos.X + " | Y: " + SingleTon.GetCursorInstance().Pos.Y + "] Steps: "+ SingleTon.GetPlayerController().Steps +" {" + SingleTon.GetCursorInstance().CurrentTile.TileName + "}");
             CW.SetPos(1, 2);
             for (int y = 0; y < ViewSize.Y; y++)
             {
