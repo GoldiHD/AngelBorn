@@ -13,12 +13,34 @@ namespace AngelBorn.Menus
 {
     class IntroMenu
     {
+
         public void Run()
         {
             bool Return;
             CW.Clear();
+            CW.WriteSlowNL("You wake up in darkness, the last thing you remember was your life slowly dissapering from your body after saving your best friend from getting crushed to death by a car", 50);
+            CW.WriteSlowNL("Even with the light faded there is still something out there", 50);
+            CW.WriteSlowNL("Suddenly a text appere in front of you", 50);
+            CW.ReadKey();
+            CW.WriteSlowNL("", 50);
+            Return = false;
+            while (!Return)
+            {
+                switch (CW.ReadKey().KeyChar)
+                {
+                    case 'Y':
+                    case 'y':
+                        Return = true;
+                        break;
+
+                    case 'n':
+                    case 'M':
+                        Environment.Exit(0);
+                        break;
+                }
+            }
             CW.WriteSlowNL("Welcome hero, what shall I call you by", 50);
-            CW.WriteSlow("Name:",20);
+            CW.WriteSlow("Name:", 20);
             SingleTon.GetPlayerController().PlayerName = CW.Readline();
             CW.WriteSlowNL("", 20);
             CW.Clear();
@@ -27,14 +49,14 @@ namespace AngelBorn.Menus
             {
                 CW.Clear();
                 CW.WriteSlowNL("Now Please select a Race from this list", 20);
-                for(int i = 0; i < PlayerRace.races.Count; i++)
+                for (int i = 0; i < PlayerRace.races.Count; i++)
                 {
                     CW.WriteLine(PlayerRace.races[i].Name + " [" + PlayerRace.races[i].selectSign + "]");
                 }
                 char input = CW.ReadKey().KeyChar;
-                for(int i = 0; i < PlayerRace.races.Count; i++)
+                for (int i = 0; i < PlayerRace.races.Count; i++)
                 {
-                    if(Char.ToLower(input) == Char.ToLower(PlayerRace.races[i].selectSign))
+                    if (Char.ToLower(input) == Char.ToLower(PlayerRace.races[i].selectSign))
                     {
                         SingleTon.GetPlayerController().PlayerRace = PlayerRace.races[i];
                         SingleTon.GetPlayerController().PlayerRace.ApplyBonus();
@@ -65,20 +87,20 @@ namespace AngelBorn.Menus
                 }
             } while (!Return);
 
-            List<char> LoadingSym = new List<char>{'|','/','-','\\'};
+            List<char> LoadingSym = new List<char> { '|', '/', '-', '\\' };
             int x = 0;
 
-            while(true)
+            while (true)
             {
-                
+
                 if (SingleTon.GetMapManagerInstance().MapCreators[0].IsAlive)
                 {
                     Console.Clear();
-                    if(x == LoadingSym.Count)
+                    if (x == LoadingSym.Count)
                     {
                         x = 0;
                     }
-                    Console.Write("Loading..."+ LoadingSym[x]);
+                    Console.Write("Loading..." + LoadingSym[x]);
                     x++;
                 }
                 else

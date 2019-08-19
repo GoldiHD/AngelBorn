@@ -24,7 +24,7 @@ namespace AngelBorn.World
             MapSize = mapSize;
             Tiles = new BaseTile[mapSize.X, mapSize.Y];
         }
-
+        private List<BaseNPC> NPCS;
         private Cord Location;
 
         public Thread GenerateMapThread(List<BaseTile> tiles, List<CityTile> Locations, List<BaseCharacters> SpawnAbleEnemies, int amountOfDungeon)
@@ -53,6 +53,7 @@ namespace AngelBorn.World
             MD.tiles = tiles;
             MD.SpawnAbleEnemies = npcs;
             MD.AmountOfDungeonOrHouses = house;
+            NPCS = npcs.Select(x => new BaseNPC()).ToList();
             Generator.Name = "Map";
             Generator.Start(MD);
 
@@ -88,6 +89,18 @@ namespace AngelBorn.World
             foreach(Cord element in CheckList)
             {
                 Tiles[element.X, element.Y] = Wall;
+            }
+            
+            if(NPCS.Count >= 2)
+            {
+                for(int b = 0; b <= SingleTon.GetRandomNum(0,3); b++)
+                {
+                    //Tiles[SingleTon.GetRandomNum]
+                }
+            }
+            else if(NPCS.Count == 1)
+            {
+
             }
         }
 
@@ -321,7 +334,7 @@ namespace AngelBorn.World
         #region MovementChecking
         public bool CheckLocation(int x, int y)
         {
-            if (x > 0 && x < MapSize.X && y > 0 && y < MapSize.Y)
+            if (x > -1 && x < MapSize.X && y > -1 && y < MapSize.Y)
             {
                 if (Tiles[x, y].MyType != TileType.Inpassable)
                 {

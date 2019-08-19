@@ -84,7 +84,7 @@ namespace AngelBorn.Grapihcs.MapGra
 
                             case TileType.NPC:
                                 Console.ForegroundColor = ConsoleColor.Cyan;
-                                Console.Write(" *");
+                                Console.Write(" X");
                                 Console.ForegroundColor = ConsoleColor.White;
                                 break;
                         }
