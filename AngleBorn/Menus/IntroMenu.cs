@@ -20,9 +20,10 @@ namespace AngelBorn.Menus
             CW.Clear();
             CW.WriteSlowNL("You wake up in darkness, the last thing you remember was your life slowly dissapering from your body after saving your best friend from getting crushed to death by a car", 50);
             CW.WriteSlowNL("Even with the light faded there is still something out there", 50);
-            CW.WriteSlowNL("Suddenly a text appere in front of you", 50);
+            CW.WriteSlowNL("Suddenly a text appere in front of you...", 50);
             CW.ReadKey();
-            CW.WriteSlowNL("", 50);
+            CW.Clear();
+            CW.WriteSlowNL("You unlocked \"Adventure\" would you like to continue on this path [y/n]\nSaying no will resualt in your heart stopping in 0.2 seconds", 50);
             Return = false;
             while (!Return)
             {
@@ -34,11 +35,17 @@ namespace AngelBorn.Menus
                         break;
 
                     case 'n':
-                    case 'M':
+                    case 'N':
                         Environment.Exit(0);
+                        break;
+
+                    default:
+                        CW.Clear();
+                        CW.WriteLine("You unlocked \"Adventure\" would you like to continue on this path [y/n]\nSaying no will resualt in your heart stopping in 0.2 seconds");
                         break;
                 }
             }
+            CW.Clear();
             CW.WriteSlowNL("Welcome hero, what shall I call you by", 50);
             CW.WriteSlow("Name:", 20);
             SingleTon.GetPlayerController().PlayerName = CW.Readline();

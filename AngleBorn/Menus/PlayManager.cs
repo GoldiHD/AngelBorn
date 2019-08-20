@@ -1,5 +1,6 @@
 ﻿using AngelBorn.Grapihcs;
 using AngelBorn.Grapihcs.MapGra;
+using AngelBorn.Player.Inventory;
 using AngelBorn.Tools;
 using AngleBorn.Player;
 using System;
@@ -12,10 +13,12 @@ namespace AngleBorn.Menus
 {
     class PlayManager
     {
+        public InventoryManager inventory { get; private set; }
         private PlayerState State = PlayerState.WorldMap;
         private MapDraw ViewMap = new MapDraw();
         private DrawStats ViewStats = new DrawStats();
         private Movement movement = new Movement();
+
         public void Run()
         {
             CW.Clear();

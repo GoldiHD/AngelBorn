@@ -2,6 +2,7 @@
 using AngelBorn.Grapihcs.MapGra;
 using AngelBorn.Tools;
 using AngelBorn.World.Tiles;
+using AngleBorn.World.Tiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,10 +92,26 @@ namespace AngleBorn.Player
                         CW.Clear();
                         return true;
                     }
+                    else if(SingleTon.GetCursorInstance().CurrentTile is Dungeon)
+                    {
+                        Dungeon DG = (Dungeon)SingleTon.GetCursorInstance().CurrentTile;
+                        DG.LoadMap().MapTile = SingleTon.GetCursorInstance().CurrentTile;
+                        SingleTon.GetCursorInstance().CurrentTile = DG.DungeonMap.SpawnPoint;
+                        SingleTon.GetMapManagerInstance().CurrentMap = DG.LoadMap();
+                        return true;
+                    }
                     else
                     {
                         return false;
                     }
+
+                case ConsoleKey.Escape:
+                    if(SingleTon.GetMapManagerInstance().CurrentMap.MapTile != null)
+                    {
+                        SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.MapTile;
+                        //SingleTon.GetMapManagerInstance().CurrentMap = SingleTon.GetMapManagerInstance().CurrentMap.MapTile.
+                    }
+                    return true;
 
                 default:
                     return false;

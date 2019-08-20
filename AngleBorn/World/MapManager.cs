@@ -55,15 +55,18 @@ namespace AngelBorn.World
             Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "GrassPlain", Description = "An open field of grass, you're not likely to meet anyone here", Walkable = true });
             Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Forest", Description = "Are normal forest you're likely to find things here", Walkable = true });
             //Tiles.Add()
-
-
-
-
         }
 
         private void CreateNPCS()
         {
-
+            NPCS.Add(new BaseNPC("jill", 30, false));
+            NPCS.Add(new BaseNPC("jill", 30, false));
+            NPCS.Add(new BaseNPC("jill", 30, false));
+            NPCS.Add(new BaseNPC("jill", 30, false));
+            NPCS.Add(new BaseNPC("jill", 30, false));
+            NPCS.Add(new BaseNPC("jill", 30, false));
+            NPCS.Add(new BaseNPC("jill", 30, false));
+            NPCS.Add(new BaseNPC("jill", 30, false));
         }
 
         private void CreateMaps()
@@ -90,11 +93,11 @@ namespace AngelBorn.World
             Towns.Add(new CityTile("Glossop", Maps[0], Maps[5]));
 
             MapCreators.Add(Maps[0].GenerateMapThread(new List<BaseTile> { Tiles[1], Tiles[2] }, new List<CityTile> { Towns[0],  Towns[1], Towns[2], Towns[3], Towns[4]}, new List<BaseCharacters>(), 20));
-            MapCreators.Add(Maps[1].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { }, 15, Towns[0]));
-            MapCreators.Add(Maps[2].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },20, Towns[1]));
-            MapCreators.Add(Maps[3].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },10, Towns[2]));
-            MapCreators.Add(Maps[4].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },30, Towns[3]));
-            MapCreators.Add(Maps[5].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { },4, Towns[4]));
+            MapCreators.Add(Maps[1].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0], NPCS[1], NPCS[2], NPCS[3], NPCS[4], NPCS[5], NPCS[6]  }, 15, Towns[0]));
+            MapCreators.Add(Maps[2].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0], NPCS[1], NPCS[2], NPCS[3], NPCS[4], NPCS[5], NPCS[6] },20, Towns[1]));
+            MapCreators.Add(Maps[3].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0], NPCS[1], NPCS[2], NPCS[3], NPCS[4], NPCS[5], NPCS[6] },10, Towns[2]));
+            MapCreators.Add(Maps[4].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0], NPCS[1], NPCS[2], NPCS[3], NPCS[4], NPCS[5], NPCS[6] },30, Towns[3]));
+            MapCreators.Add(Maps[5].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0], NPCS[1], NPCS[2], NPCS[3], NPCS[4], NPCS[5], NPCS[6] },4, Towns[4]));
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AngelBorn.Player.Inventory
 {
-    class PlayerInventory
+    class InventoryManager
     {
         public int Gold { get; private set; }
         public void AddGold(int amount)
@@ -25,7 +25,7 @@ namespace AngelBorn.Player.Inventory
             }
         }
 
-        public PlayerInventory()
+        public InventoryManager()
         {
             Gold = 0;
         }

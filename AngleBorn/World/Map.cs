@@ -18,6 +18,7 @@ namespace AngelBorn.World
         public BaseTile SpawnPoint;
         public BaseTile MyTile;
         public BaseTile[,] Tiles;
+        public BaseTile MapTile; 
         public Cord MapSize { get; private set; }
         public Map(Cord mapSize)
         {
@@ -62,7 +63,6 @@ namespace AngelBorn.World
 
         private void GenerateDungeon(object MD)
         {
-
         }
 
         private bool CheckHouse()
@@ -95,12 +95,15 @@ namespace AngelBorn.World
             {
                 for(int b = 0; b <= SingleTon.GetRandomNum(0,3); b++)
                 {
-                    //Tiles[SingleTon.GetRandomNum]
+                    BaseNPC npc = NPCS[SingleTon.GetRandomNum(0, NPCS.Count)];
+                    Tiles[SingleTon.GetRandomNum(Location.X - 1, Location.X + 2), SingleTon.GetRandomNum(Location.Y + 1, Location.Y + 4)] = new TileNPC(npc.name, true);
+                    NPCS.Remove(npc);
                 }
             }
             else if(NPCS.Count == 1)
             {
-
+                Tiles[SingleTon.GetRandomNum(Location.X - 1, Location.X + 2), SingleTon.GetRandomNum(Location.Y + 1, Location.Y + 4)] = new TileNPC(NPCS[0].name, true);
+                NPCS.RemoveAt(0);
             }
         }
 

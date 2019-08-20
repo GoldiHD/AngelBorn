@@ -9,9 +9,15 @@ namespace AngleBorn.World.Tiles
 {
     class Dungeon : BaseTile
     {
+        public Map DungeonMap;
         public Dungeon()
         {
             MyType = TileType.Dungeon;
+        }
+
+        public Map LoadMap()
+        {
+            return DungeonMap;
         }
     }
 }

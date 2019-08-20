@@ -15,7 +15,7 @@ namespace AngelBorn.Player
         public int Level = 1;
         public Stats Skills { get; private set; }
         private string _PlayerName;
-        public PlayerInventory inventory;
+        public InventoryManager inventory;
         public string PlayerName
         {
             get { return _PlayerName; }
@@ -30,7 +30,7 @@ namespace AngelBorn.Player
 
         public PlayerController()
         {
-            inventory = new PlayerInventory();
+            inventory = new InventoryManager();
             Skills = new Stats(1,1,1,1);
         }
 

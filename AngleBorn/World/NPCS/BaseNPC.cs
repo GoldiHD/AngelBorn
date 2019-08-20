@@ -8,8 +8,15 @@ namespace AngleBorn.World.NPCS
 {
     class BaseNPC : BaseCharacters
     {
-        protected string name;
-        protected int Health;
+        public string name { get; private set; }
+        public int Health { get; private set; }
+
+        public BaseNPC(string _name, int health, bool Trade)
+        {
+
+        }
+
+        public BaseNPC() { }
 
     }
 }

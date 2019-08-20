@@ -66,6 +66,7 @@
     <Compile Include="World\Map.cs" />
     <Compile Include="World\MapManager.cs" />
     <Compile Include="World\NPCS\BaseNPC.cs" />
+    <Compile Include="World\NPCS\TileNPC.cs" />
     <Compile Include="World\Tiles\BaseTile.cs" />
     <Compile Include="World\Tiles\CityTile.cs" />
     <Compile Include="World\Tiles\Dungeon.cs" />
