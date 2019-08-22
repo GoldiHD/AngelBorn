@@ -18,7 +18,7 @@ namespace AngelBorn.World
         public BaseTile SpawnPoint;
         public BaseTile MyTile;
         public BaseTile[,] Tiles;
-        public BaseTile MapTile; 
+        public BaseTile MapTile;
         public Cord MapSize { get; private set; }
         public Map(Cord mapSize)
         {
@@ -26,6 +26,7 @@ namespace AngelBorn.World
             Tiles = new BaseTile[mapSize.X, mapSize.Y];
         }
         private List<BaseNPC> NPCS;
+        public List<TileNPC> AllNPCs { get; private set; }
         private Cord Location;
 
         public Thread GenerateMapThread(List<BaseTile> tiles, List<CityTile> Locations, List<BaseCharacters> SpawnAbleEnemies, int amountOfDungeon)
@@ -37,8 +38,21 @@ namespace AngelBorn.World
             MD.Locations = Locations;
             MD.tiles = tiles;
             MD.SpawnAbleEnemies = SpawnAbleEnemies;
-            Generator.Name = "Map";
             MD.AmountOfDungeonOrHouses = amountOfDungeon;
+            Generator.Start(MD);
+
+            return Generator;
+        }
+
+        public Thread GenerateMapThread(List<BaseTile> tiles, List<BaseCharacters> enemies, int chests)
+        {
+            Thread Generator;
+            Generator = new Thread(new ParameterizedThreadStart(GenerateDungeon));
+            MapData MD;
+            MD.Locations = new List<CityTile>();
+            MD.tiles = tiles;
+            MD.SpawnAbleEnemies = enemies;
+            MD.AmountOfDungeonOrHouses = chests;
             Generator.Start(MD);
 
             return Generator;
@@ -54,8 +68,6 @@ namespace AngelBorn.World
             MD.tiles = tiles;
             MD.SpawnAbleEnemies = npcs;
             MD.AmountOfDungeonOrHouses = house;
-            NPCS = npcs.Select(x => new BaseNPC()).ToList();
-            Generator.Name = "Map";
             Generator.Start(MD);
 
             return Generator;
@@ -63,6 +75,7 @@ namespace AngelBorn.World
 
         private void GenerateDungeon(object MD)
         {
+
         }
 
         private bool CheckHouse()
@@ -71,7 +84,7 @@ namespace AngelBorn.World
             List<Cord> CheckList = new List<Cord> { new Cord { X = Location.X - 1, Y = Location.Y }, new Cord { X = Location.X - 2, Y = Location.Y }, new Cord { X = Location.X - 2, Y = Location.Y - 1 }, new Cord { X = Location.X - 2, Y = Location.Y - 2 }, new Cord { X = Location.X - 2, Y = Location.Y - 3 }, new Cord { X = Location.X - 2, Y = Location.Y - 4 }, new Cord { X = Location.X - 1, Y = Location.Y - 4 }, new Cord { X = Location.X, Y = Location.Y - 4 }, new Cord { X = Location.X + 1, Y = Location.Y - 4 }, new Cord { X = Location.X + 2, Y = Location.Y - 4 }, new Cord { X = Location.X + 2, Y = Location.Y - 3 }, new Cord { X = Location.X + 2, Y = Location.Y - 2 }, new Cord { X = Location.X + 2, Y = Location.Y - 1 }, new Cord { X = Location.X + 2, Y = Location.Y }, new Cord { X = Location.X + 1, Y = Location.Y } };
             foreach (Cord element in CheckList)
             {
-                if(MapSize.X <= element.X || 0 > element.X || MapSize.Y <= element.Y || 0 > element.Y)
+                if (MapSize.X <= element.X || 0 > element.X || MapSize.Y <= element.Y || 0 > element.Y)
                 {
                     return false;
                 }
@@ -86,31 +99,39 @@ namespace AngelBorn.World
         private void CreateHouse(Cord cord, BaseTile Wall)
         {
             List<Cord> CheckList = new List<Cord> { new Cord { X = Location.X - 1, Y = Location.Y }, new Cord { X = Location.X - 2, Y = Location.Y }, new Cord { X = Location.X - 2, Y = Location.Y - 1 }, new Cord { X = Location.X - 2, Y = Location.Y - 2 }, new Cord { X = Location.X - 2, Y = Location.Y - 3 }, new Cord { X = Location.X - 2, Y = Location.Y - 4 }, new Cord { X = Location.X - 1, Y = Location.Y - 4 }, new Cord { X = Location.X, Y = Location.Y - 4 }, new Cord { X = Location.X + 1, Y = Location.Y - 4 }, new Cord { X = Location.X + 2, Y = Location.Y - 4 }, new Cord { X = Location.X + 2, Y = Location.Y - 3 }, new Cord { X = Location.X + 2, Y = Location.Y - 2 }, new Cord { X = Location.X + 2, Y = Location.Y - 1 }, new Cord { X = Location.X + 2, Y = Location.Y }, new Cord { X = Location.X + 1, Y = Location.Y } };
-            foreach(Cord element in CheckList)
+            foreach (Cord element in CheckList)
             {
                 Tiles[element.X, element.Y] = Wall;
             }
-            
-            if(NPCS.Count >= 2)
+            if (NPCS.Count >= 2)
             {
-                for(int b = 0; b <= SingleTon.GetRandomNum(0,3); b++)
+                int rand = SingleTon.GetRandomNum(0, 3);
+                if (rand != 0)
                 {
-                    BaseNPC npc = NPCS[SingleTon.GetRandomNum(0, NPCS.Count)];
-                    Tiles[SingleTon.GetRandomNum(Location.X - 1, Location.X + 2), SingleTon.GetRandomNum(Location.Y + 1, Location.Y + 4)] = new TileNPC(npc.name, true);
-                    NPCS.Remove(npc);
+                    for (int b = 0; b < rand; ++b)
+                    {
+                        BaseNPC npc = NPCS[SingleTon.GetRandomNum(0, NPCS.Count)];
+                        Cord pos = new Cord { X = SingleTon.GetRandomNum(Location.X - 1, Location.X + 2), Y = SingleTon.GetRandomNum(Location.Y - 3, Location.Y) };
+                        Tiles[pos.X, pos.Y] = new TileNPC(npc.name, true, pos);
+                        AllNPCs.Add((TileNPC)Tiles[pos.X, pos.Y]);
+                        NPCS.Remove(npc);
+                    }
                 }
             }
-            else if(NPCS.Count == 1)
+            else if (NPCS.Count == 1)
             {
-                Tiles[SingleTon.GetRandomNum(Location.X - 1, Location.X + 2), SingleTon.GetRandomNum(Location.Y + 1, Location.Y + 4)] = new TileNPC(NPCS[0].name, true);
+                Cord pos = new Cord { X = SingleTon.GetRandomNum(Location.X - 1, Location.X + 2), Y = SingleTon.GetRandomNum(Location.Y - 3, Location.Y) };
+                Tiles[pos.X, pos.Y] = new TileNPC(NPCS[0].name, true, pos);
                 NPCS.RemoveAt(0);
             }
         }
 
         private void GenerateTown(object MD)
         {
+            AllNPCs = new List<TileNPC>();
             MapData Temp = (MapData)MD;
             List<BaseTile> tiles = Temp.tiles;
+            NPCS = Temp.SpawnAbleEnemies.Select(x => (BaseNPC)x).ToList();
 
             for (int y = 0; y < MapSize.Y; y++)
             {
@@ -134,7 +155,6 @@ namespace AngelBorn.World
                 Location = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
                 if (Tiles[Location.X, Location.Y].MyType == TileType.Normal)
                 {
-
                     SpawnPoint = Tiles[Location.X, Location.Y];
                     return;
                 }
@@ -146,7 +166,7 @@ namespace AngelBorn.World
             MapData Temp = (MapData)MD;
             List<BaseTile> tiles = Temp.tiles;
             List<CityTile> Locations = Temp.Locations;
-            List<Enemy> SpawnAbleEnemies = Temp.SpawnAbleEnemies.Select(x => new Enemy()).ToList();
+            List<Enemy> SpawnAbleEnemies = Temp.SpawnAbleEnemies.Select(x => (Enemy)x).ToList();
             List<int> Sides;
             Cord Test;
             bool RoomFound = false;
@@ -310,6 +330,7 @@ namespace AngelBorn.World
                     if (Tiles[cord.X, cord.Y].MyType == TileType.Normal)
                     {
                         Tiles[cord.X, cord.Y] = new CityTile().CopyOf(_Locations[i]);
+                        _Locations[i].Pos = cord;
                         Tiles[cord.X, cord.Y].Pos = cord;
 
                         roomFound = true;

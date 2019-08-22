@@ -13,7 +13,9 @@ namespace AngleBorn.World.NPCS
 
         public BaseNPC(string _name, int health, bool Trade)
         {
-
+            name = _name;
+            Health = health;
+           
         }
 
         public BaseNPC() { }

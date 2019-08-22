@@ -1,7 +1,9 @@
 ﻿using AngelBorn.Grapihcs;
 using AngelBorn.Grapihcs.MapGra;
 using AngelBorn.Tools;
+using AngelBorn.World;
 using AngelBorn.World.Tiles;
+using AngleBorn.Grapihcs;
 using AngleBorn.World.Tiles;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AngleBorn.Player
 {
-    class Movement
+    class Movement 
     {
         private ConsoleKeyInfo Input;
         private MapDraw MapD = new MapDraw();
@@ -74,7 +76,7 @@ namespace AngleBorn.Player
                     DrawStats = !DrawStats;
                     if (DrawStats)
                     {
-                        statsD.Draw(CW.GetPos().X + (MapD.ViewSize.X * 2) + 6, 2);
+                        statsD.Draw(CW.GetPos().X + (MapDraw.ViewSize.X * 2) + 6, 2);
                         return false;
                     }
                     else
@@ -87,14 +89,17 @@ namespace AngleBorn.Player
                     if (SingleTon.GetCursorInstance().CurrentTile is CityTile)
                     {
                         CityTile CT = (CityTile)SingleTon.GetCursorInstance().CurrentTile;
+                        DrawInfoBox.Inputs.Add("You have entered " + CT.CityName); 
+                        CT.LoadMap().MapTile = SingleTon.GetCursorInstance().CurrentTile;
                         SingleTon.GetCursorInstance().CurrentTile = CT.CityMap.SpawnPoint;
                         SingleTon.GetMapManagerInstance().CurrentMap = CT.LoadMap();
                         CW.Clear();
                         return true;
                     }
-                    else if(SingleTon.GetCursorInstance().CurrentTile is Dungeon)
+                    else if (SingleTon.GetCursorInstance().CurrentTile is Dungeon)
                     {
                         Dungeon DG = (Dungeon)SingleTon.GetCursorInstance().CurrentTile;
+                        DrawInfoBox.Inputs.Add("You have entered a dungeon");
                         DG.LoadMap().MapTile = SingleTon.GetCursorInstance().CurrentTile;
                         SingleTon.GetCursorInstance().CurrentTile = DG.DungeonMap.SpawnPoint;
                         SingleTon.GetMapManagerInstance().CurrentMap = DG.LoadMap();
@@ -106,10 +111,12 @@ namespace AngleBorn.Player
                     }
 
                 case ConsoleKey.Escape:
-                    if(SingleTon.GetMapManagerInstance().CurrentMap.MapTile != null)
+                    CityTile cityTile = (CityTile)SingleTon.GetMapManagerInstance().CurrentMap.MapTile;
+                    if (cityTile == null || cityTile.ParrentMap != null)
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.MapTile;
-                        //SingleTon.GetMapManagerInstance().CurrentMap = SingleTon.GetMapManagerInstance().CurrentMap.MapTile.
+                        cityTile = (CityTile)SingleTon.GetMapManagerInstance().CurrentMap.MapTile;
+                        SingleTon.GetMapManagerInstance().CurrentMap = cityTile.ParrentMap;
                     }
                     return true;
 

@@ -29,6 +29,7 @@ namespace AngelBorn.World.Tiles
 
         public CityTile(string _cityName, Map _ParrentMap, Map _ChildMap)
         {
+            TileName = "Town";
             CityName = _cityName;
             ParrentMap = _ParrentMap;
             CityMap = _ChildMap;

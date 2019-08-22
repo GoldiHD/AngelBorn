@@ -10,7 +10,7 @@ namespace AngelBorn.Grapihcs.MapGra
     class MapDraw
     {
         private Map CurrentMap;
-        public Cord ViewSize = new Cord() { X = 21 , Y = 21 }; //always take uneven numbers
+        public static Cord ViewSize = new Cord() { X = 21 , Y = 21 }; //always take uneven numbers
         private Cord StartDrawingPos = new Cord();
         private string Town= "";
 

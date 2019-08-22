@@ -8,7 +8,7 @@ namespace AngelBorn.Grapihcs
 {
     class DrawStats
     {
-
+        public static int Lenght = 0;
         public void Draw(int x, int y)
         {
             CW.SetPos(x, y);
@@ -16,9 +16,9 @@ namespace AngelBorn.Grapihcs
         }
         public void Draw()
         {
-            int line = 0;
+            int line;
+            line = 0;
             Cord Pos = CW.GetPos();
-            int Lenght;
             string FillerLine = "│";
             string Firsslot = "│ Name: " + SingleTon.GetPlayerController().PlayerName + " │ Level: " + SingleTon.GetPlayerController().Level + " │ Job: " + SingleTon.GetPlayerController().PlayerClass.Name + " ";
             string SecSlot = "│ Race: " + SingleTon.GetPlayerController().PlayerRace.Name + " │ Health: " + SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent + "/" + SingleTon.GetPlayerController().Skills.Vitallity.Health + " │ Mana: " + SingleTon.GetPlayerController().Skills.Magic.ManaCurrent + "/" + SingleTon.GetPlayerController().Skills.Magic.Mana+ " ";

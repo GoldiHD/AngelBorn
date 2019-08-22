@@ -15,12 +15,13 @@ namespace AngleBorn.World.NPCS
         public bool Tradable { get; private set; }
         public InventoryManager inventory { get; private set; }
 
-        public TileNPC(string _name, bool tradable)
+        public TileNPC(string _name, bool tradable, Cord _pos)
         {
             MyType = TileType.NPC;
             TileName = _name;
             Tradable = tradable;
             name = _name;
+            Pos = _pos;
             inventory = new InventoryManager();
         }
     }

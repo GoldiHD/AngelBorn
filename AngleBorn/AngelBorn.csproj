@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Grapihcs\DrawInfoBox.cs" />
     <Compile Include="Grapihcs\DrawStats.cs" />
     <Compile Include="Grapihcs\MapDraw.cs" />
     <Compile Include="Menus\IntroMenu.cs" />

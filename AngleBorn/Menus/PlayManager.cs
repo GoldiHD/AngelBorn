@@ -2,6 +2,7 @@
 using AngelBorn.Grapihcs.MapGra;
 using AngelBorn.Player.Inventory;
 using AngelBorn.Tools;
+using AngleBorn.Grapihcs;
 using AngleBorn.Player;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,14 @@ namespace AngleBorn.Menus
         private MapDraw ViewMap = new MapDraw();
         private DrawStats ViewStats = new DrawStats();
         private Movement movement = new Movement();
+        private DrawInfoBox DIB = new DrawInfoBox();
+        private int infoBoardSize = 0;
 
         public void Run()
         {
             CW.Clear();
             ViewMap.DrawMap();
+            DIB.Draw(2, MapDraw.ViewSize.Y * 2 + 3);
             while (true)
             {
 
@@ -33,10 +37,10 @@ namespace AngleBorn.Menus
                         {
                             ViewMap.DrawMap();
                         }
-                        break;
-
-                    case PlayerState.SubMap:
-
+                        if(infoBoardSize < DrawInfoBox.Inputs.Count)
+                        {
+                            DIB.Draw(2,MapDraw.ViewSize.Y * 2  + 3);
+                        }
                         break;
 
                     case PlayerState.Store:
