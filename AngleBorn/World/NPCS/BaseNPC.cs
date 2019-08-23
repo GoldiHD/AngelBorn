@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AngelBorn.Player.Inventory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +9,13 @@ namespace AngleBorn.World.NPCS
 {
     class BaseNPC : BaseCharacters
     {
-        public string name { get; private set; }
-        public int Health { get; private set; }
+        public bool Trade;
 
-        public BaseNPC(string _name, int health, bool Trade)
+        public BaseNPC(string _name, int health, bool _trade)
         {
-            name = _name;
+            Name = _name;
             Health = health;
-           
+            Trade = _trade;
         }
 
         public BaseNPC() { }

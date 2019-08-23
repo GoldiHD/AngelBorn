@@ -69,7 +69,21 @@ namespace AngleBorn.Grapihcs
             CW.SetPos(pos.X, (MapDraw.ViewSize.Y) + 3 + Height);
             Height++;
             CW.Write(TopLine);
-            for (int i = Index; i < Index + LinesToWrite; i++)
+            string FillText = "";
+            for(int x = 0; x < line + 1; x++)
+            {
+                FillText += " ";
+            }
+            for(int c = Index; c < LinesToWrite; c++)
+            {
+                CW.SetPos(pos.X, (MapDraw.ViewSize.Y) + 3 + Height);
+                CW.Write(FillText);
+                Height++;
+            }
+
+            Height = 2;
+
+            for (int i = Index; i < LinesToWrite + Index; i++)
             {
                 CW.SetPos(pos.X, (MapDraw.ViewSize.Y) + 3 + Height);
                 CW.Write(Side +" "+ Inputs[i]); 

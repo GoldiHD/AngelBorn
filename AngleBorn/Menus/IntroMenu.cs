@@ -13,7 +13,7 @@ namespace AngelBorn.Menus
 {
     class IntroMenu
     {
-        bool test = true;
+        bool test = false;
 
         public void Run()
         {
@@ -150,7 +150,7 @@ namespace AngelBorn.Menus
                 SingleTon.GetMapManagerInstance().SetPlayerSpawn(0);
                 CW.Clear();
                 CW.WriteSlowNL("Welcome to the adventure", 20);
-                CW.WriteLine("Controls: \nArrows to move\n[S] to open stat block\n@ is villages\n[Ø]is a dungeon\nuse enter to enter villages or dungeons");
+                CW.WriteLine("Controls: \nArrows to move\n[S] to open stat block\n@ is villages\n[Ø]is a dungeon\n[Enter] to enter villages or dungeons\n[X] is people\n[Escape] to exit a dungeon or villager");
                 CW.Write("Press anything to continue");
                 CW.ReadKey();
                 CW.Clear();

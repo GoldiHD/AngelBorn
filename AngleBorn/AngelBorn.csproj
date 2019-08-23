@@ -50,7 +50,7 @@
     <Compile Include="Menus\PlayManager.cs" />
     <Compile Include="Player\Abilities\BaseAbilites.cs" />
     <Compile Include="Player\Cursor.cs" />
-    <Compile Include="Player\Inventory\PlayerInventory.cs" />
+    <Compile Include="Player\Inventory\InventoryManager.cs" />
     <Compile Include="Player\Movement.cs" />
     <Compile Include="Player\PlayerClass\PlayerClass.cs" />
     <Compile Include="Player\PlayerController.cs" />

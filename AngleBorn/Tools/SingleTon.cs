@@ -12,7 +12,7 @@ namespace AngelBorn.Tools
         private static PlayerController PlayerController;
         private static Cursor cursor;
         private static MapManager mapManager;
-        private static Enemymanager enemies;
+        private static EnemyManager enemies;
         private static Random RNG;
 
         public static PlayerController GetPlayerController()
@@ -51,11 +51,11 @@ namespace AngelBorn.Tools
             return RNG.Next(first, sec);
         }
 
-        public static Enemymanager GetEnemies()
+        public static EnemyManager GetEnemies()
         {
             if(enemies == null)
             {
-                enemies = new Enemymanager();
+                enemies = new EnemyManager();
             }
             return enemies;
         }

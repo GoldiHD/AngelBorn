@@ -75,7 +75,17 @@ namespace AngelBorn.World
 
         private void GenerateDungeon(object MD)
         {
-
+            MapData Temp = (MapData)MD;
+            List<BaseTile> tiles = Temp.tiles;
+            for (int y = 0; y < MapSize.Y; y++)
+            {
+                for (int x = 0; x < MapSize.X; x++)
+                {
+                    Tiles[x, y] = new BaseTile().CopyOf(tiles[1]);
+                    Tiles[x, y].Pos = new Cord { X = x, Y = y };
+                }
+            }
+            SpawnPoint = Tiles[0, 0];
         }
 
         private bool CheckHouse()
@@ -112,7 +122,7 @@ namespace AngelBorn.World
                     {
                         BaseNPC npc = NPCS[SingleTon.GetRandomNum(0, NPCS.Count)];
                         Cord pos = new Cord { X = SingleTon.GetRandomNum(Location.X - 1, Location.X + 2), Y = SingleTon.GetRandomNum(Location.Y - 3, Location.Y) };
-                        Tiles[pos.X, pos.Y] = new TileNPC(npc.name, true, pos);
+                        Tiles[pos.X, pos.Y] = new TileNPC(npc.Name, true, pos);
                         AllNPCs.Add((TileNPC)Tiles[pos.X, pos.Y]);
                         NPCS.Remove(npc);
                     }
@@ -121,7 +131,7 @@ namespace AngelBorn.World
             else if (NPCS.Count == 1)
             {
                 Cord pos = new Cord { X = SingleTon.GetRandomNum(Location.X - 1, Location.X + 2), Y = SingleTon.GetRandomNum(Location.Y - 3, Location.Y) };
-                Tiles[pos.X, pos.Y] = new TileNPC(NPCS[0].name, true, pos);
+                Tiles[pos.X, pos.Y] = new TileNPC(NPCS[0].Name, true, pos);
                 NPCS.RemoveAt(0);
             }
         }

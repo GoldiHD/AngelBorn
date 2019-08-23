@@ -1,4 +1,5 @@
 ﻿using AngelBorn.Tools;
+using AngelBorn.World.Enemies;
 using AngelBorn.World.Tiles;
 using AngleBorn.World;
 using AngleBorn.World.NPCS;
@@ -16,6 +17,8 @@ namespace AngelBorn.World
         public List<Thread> MapCreators;
         public List<Map> Dungeons { get; private set; }
         public List<BaseNPC> NPCS = new List<BaseNPC>();
+        public EnemyManager EM = new EnemyManager();
+
         public MapManager()
         {
             Dungeons = new List<Map>();
@@ -54,6 +57,7 @@ namespace AngelBorn.World
             Tiles.Add(new BaseTile() { TileName = "Moutain", Walkable = false, MyType = TileType.Inpassable });
             Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "GrassPlain", Description = "An open field of grass, you're not likely to meet anyone here", Walkable = true });
             Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Forest", Description = "Are normal forest you're likely to find things here", Walkable = true });
+            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Dungeon Floor", Description = "a dusty floor in the in a wet and cold dungeon", Walkable = true });
         }
 
         private void CreateNPCS()
@@ -75,6 +79,7 @@ namespace AngelBorn.World
             Dungeons.Add(new Map(new Cord { X = 30, Y = 30 }));
             Dungeons.Add(new Map(new Cord { X = 38, Y = 28 }));
             Dungeons.Add(new Map(new Cord { X = 64, Y = 70 }));
+
             
 
             //World Map
@@ -112,6 +117,12 @@ namespace AngelBorn.World
             MapCreators.Add(Maps[8].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[7]));
             MapCreators.Add(Maps[9].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[8]));
             MapCreators.Add(Maps[10].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[9]));
+
+            //Dungeons
+            MapCreators.Add(Dungeons[0].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[3] }, new List<BaseCharacters> { EM.enemies[0], EM.enemies[1], EM.enemies[2]}, 5));
+            MapCreators.Add(Dungeons[1].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[3] }, new List<BaseCharacters> { EM.enemies[0], EM.enemies[1], EM.enemies[2] }, 5));
+            MapCreators.Add(Dungeons[2].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[3] }, new List<BaseCharacters> { EM.enemies[0], EM.enemies[1], EM.enemies[2] }, 5));
+            MapCreators.Add(Dungeons[3].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[3] }, new List<BaseCharacters> { EM.enemies[0], EM.enemies[1], EM.enemies[2] }, 5));
         }
     }
 }

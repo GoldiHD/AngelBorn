@@ -15,7 +15,7 @@ namespace AngleBorn.Menus
     class PlayManager
     {
         public InventoryManager inventory { get; private set; }
-        private PlayerState State = PlayerState.WorldMap;
+        public static PlayerState State;
         private MapDraw ViewMap = new MapDraw();
         private DrawStats ViewStats = new DrawStats();
         private Movement movement = new Movement();
@@ -24,6 +24,7 @@ namespace AngleBorn.Menus
 
         public void Run()
         {
+            State = PlayerState.WorldMap;
             CW.Clear();
             ViewMap.DrawMap();
             DIB.Draw(2, MapDraw.ViewSize.Y * 2 + 3);
@@ -37,9 +38,13 @@ namespace AngleBorn.Menus
                         {
                             ViewMap.DrawMap();
                         }
-                        if(infoBoardSize < DrawInfoBox.Inputs.Count)
+                        
+                        break;
+
+                    case PlayerState.Dungeon:
+                        if(movement.MovementInDungeon())
                         {
-                            DIB.Draw(2,MapDraw.ViewSize.Y * 2  + 3);
+                            ViewMap.DrawMap();
                         }
                         break;
 
@@ -55,12 +60,16 @@ namespace AngleBorn.Menus
 
                         break;
                 }
+                if (infoBoardSize < DrawInfoBox.Inputs.Count)
+                {
+                    DIB.Draw(2, MapDraw.ViewSize.Y * 2 + 3);
+                }
             }
         }
     }
 
     enum PlayerState
     {
-        WorldMap, SubMap, Combat, Store, Menu
+        WorldMap, Dungeon, Combat, Store, Menu
     }
 }
