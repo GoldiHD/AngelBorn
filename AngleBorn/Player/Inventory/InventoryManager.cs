@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AngleBorn.Items;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,7 @@ namespace AngelBorn.Player.Inventory
 {
     class InventoryManager
     {
+        public List<BaseItem> Inventory = new List<BaseItem>();
         public int Gold { get; private set; }
         public void AddGold(int amount)
         {

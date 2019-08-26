@@ -51,7 +51,7 @@ namespace AngleBorn.Menus
                     case PlayerState.Store:
 
                         break;
-
+                         
                     case PlayerState.Combat:
 
                         break;
