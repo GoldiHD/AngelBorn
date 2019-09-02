@@ -13,7 +13,7 @@ namespace AngelBorn.Menus
 {
     class IntroMenu
     {
-        bool test = true;
+        bool test = false;
 
         public void Run()
         {
