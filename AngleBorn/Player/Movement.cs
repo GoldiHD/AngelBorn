@@ -203,5 +203,10 @@ namespace AngleBorn.Player
                     return false;
             }
         }
+
+        public bool CombatMenuNavigation()
+        {
+            return true;
+        }
     }
 }

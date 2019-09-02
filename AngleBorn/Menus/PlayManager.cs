@@ -20,6 +20,7 @@ namespace AngleBorn.Menus
         private DrawStats ViewStats = new DrawStats();
         private Movement movement = new Movement();
         private DrawInfoBox DIB = new DrawInfoBox();
+        private CombatDraw CD = new CombatDraw();
         private int infoBoardSize = 0;
 
         public void Run()
@@ -53,7 +54,10 @@ namespace AngleBorn.Menus
                         break;
                          
                     case PlayerState.Combat:
-
+                        if(movement.CombatMenuNavigation())
+                        {
+                            CD.Draw();
+                        }
                         break;
 
                     case PlayerState.Menu:

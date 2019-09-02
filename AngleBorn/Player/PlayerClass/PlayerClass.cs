@@ -19,6 +19,7 @@ namespace AngelBorn.Player.PlayerClass
             playerClasses.Add(new BaseClass("Mage", 'M',0,0,2,0));
             playerClasses.Add(new BaseClass("Rouge", 'R',0,0,0,2));
             playerClasses.Add(new BaseClass("Hunter", 'H',2,0,0,0));
+            playerClasses.Add(new BaseClass("Cleric", 'C', 0, 1, 1, 0));
         }
         
     }

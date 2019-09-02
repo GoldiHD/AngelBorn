@@ -8,5 +8,8 @@ namespace AngleBorn.Items
 {
     class WeaponItem : BaseItem
     {
+        public int Damage { get; private set; }
+        public int Durability { get; private set; }
+
     }
 }

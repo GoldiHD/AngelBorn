@@ -22,6 +22,7 @@ namespace AngelBorn.World.Enemies
             Level = _level;
             Name = _name;
             inventory.AddGold(SingleTon.GetRandomNum(_goldMin, _goldMax + 1));
+            Xp = _xp;
         }
     }
 }
