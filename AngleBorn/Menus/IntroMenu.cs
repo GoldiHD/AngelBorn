@@ -114,8 +114,9 @@ namespace AngelBorn.Menus
                         CW.WriteLine(PlayerClass.playerClasses[i].Name + " [" + PlayerClass.playerClasses[i].selectSign + "]");
                     }
                     char input = CW.ReadKey().KeyChar;
-                    for (int i = 0; i < PlayerRace.races.Count; i++)
+                    for (int i = 0; i < PlayerClass.playerClasses.Count; i++)
                     {
+
                         if (Char.ToLower(input) == Char.ToLower(PlayerClass.playerClasses[i].selectSign))
                         {
                             SingleTon.GetPlayerController().PlayerClass = PlayerClass.playerClasses[i];

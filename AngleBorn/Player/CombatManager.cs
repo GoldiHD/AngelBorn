@@ -4,14 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AngleBorn.Grapihcs
+namespace AngleBorn.Player
 {
-    class CombatDraw
+    class CombatManager
     {
-        public void Draw()
-        {
-            
-
-        }
     }
 }

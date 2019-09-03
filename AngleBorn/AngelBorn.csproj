@@ -53,6 +53,7 @@
     <Compile Include="Menus\IntroMenu.cs" />
     <Compile Include="Menus\PlayManager.cs" />
     <Compile Include="Player\Abilities\BaseAbilites.cs" />
+    <Compile Include="Player\CombatManager.cs" />
     <Compile Include="Player\Cursor.cs" />
     <Compile Include="Player\Inventory\InventoryManager.cs" />
     <Compile Include="Player\Movement.cs" />

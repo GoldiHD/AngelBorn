@@ -102,7 +102,7 @@ namespace AngleBorn.Player
                         Dungeon DG = (Dungeon)SingleTon.GetCursorInstance().CurrentTile;
                         DrawInfoBox.Inputs.Add("You have entered a dungeon");
                         DG.ParrentMap = SingleTon.GetMapManagerInstance().CurrentMap;
-                        SingleTon.GetMapManagerInstance().CurrentMap = DG.LoadMap();
+                        SingleTon.GetMapManagerInstance().CurrentMap = DG.LoadMap();    
                         DG.DungeonMap.MyTile = SingleTon.GetCursorInstance().CurrentTile;
                         SingleTon.GetCursorInstance().CurrentTile = DG.LoadMap().SpawnPoint;
                         PlayManager.State = PlayerState.Dungeon;
