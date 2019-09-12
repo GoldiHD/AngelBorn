@@ -3,6 +3,8 @@ using AngelBorn.Grapihcs.MapGra;
 using AngelBorn.Player.PlayerClass;
 using AngelBorn.Player.RaceFolder;
 using AngelBorn.Tools;
+using AngelBorn.World;
+using AngleBorn.Grapihcs;
 using AngleBorn.Menus;
 using System;
 using System.Collections.Generic;
@@ -13,12 +15,14 @@ namespace AngelBorn.Menus
 {
     class IntroMenu
     {
-        bool test = false;
+        bool test = true;
 
         public void Run()
         {
             if (test)
             {
+                new CombatDraw().Draw(new Cord { X = 2, Y = 2});
+                Console.Read();
                 SingleTon.GetPlayerController().PlayerRace = PlayerRace.races[0];
                 SingleTon.GetPlayerController().PlayerClass = PlayerClass.playerClasses[0];
                 SingleTon.GetPlayerController().PlayerName = "Anon";

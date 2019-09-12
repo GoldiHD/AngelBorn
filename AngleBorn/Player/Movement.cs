@@ -206,6 +206,7 @@ namespace AngleBorn.Player
 
         public bool CombatMenuNavigation()
         {
+
             return true;
         }
     }

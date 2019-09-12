@@ -2,6 +2,7 @@
 using AngelBorn.Grapihcs.MapGra;
 using AngelBorn.Player.Inventory;
 using AngelBorn.Tools;
+using AngelBorn.World;
 using AngleBorn.Grapihcs;
 using AngleBorn.Player;
 using System;
@@ -56,7 +57,7 @@ namespace AngleBorn.Menus
                     case PlayerState.Combat:
                         if(movement.CombatMenuNavigation())
                         {
-                            CD.Draw();
+                            CD.Draw(new Cord{ X = 2, Y = 2 });
                         }
                         break;
 
