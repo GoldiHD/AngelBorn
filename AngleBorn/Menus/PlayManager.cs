@@ -32,19 +32,18 @@ namespace AngleBorn.Menus
             DIB.Draw(2, MapDraw.ViewSize.Y * 2 + 3);
             while (true)
             {
-
-                switch(State)
+                switch (State)
                 {
                     case PlayerState.WorldMap:
-                        if(movement.CheckMoveMent())
+                        if (movement.CheckMoveMent())
                         {
                             ViewMap.DrawMap();
                         }
-                        
+
                         break;
 
                     case PlayerState.Dungeon:
-                        if(movement.MovementInDungeon())
+                        if (movement.MovementInDungeon())
                         {
                             ViewMap.DrawMap();
                         }
@@ -53,11 +52,33 @@ namespace AngleBorn.Menus
                     case PlayerState.Store:
 
                         break;
-                         
+
                     case PlayerState.Combat:
-                        if(movement.CombatMenuNavigation())
+                        switch (movement.CombatMenuNavigation())
                         {
-                            CD.Draw(new Cord{ X = 2, Y = 2 });
+                            case CombatMenuReturn.None:
+                                CD.Draw(new Cord { X = 2, Y = 2 });
+                                break;
+
+                            case CombatMenuReturn.Menu:
+                                CD.RedrawAcionMenu();
+                                break;
+
+                            case CombatMenuReturn.LogAndStatBlock:
+
+                                break;
+
+                            case CombatMenuReturn.Log:
+
+                                break; 
+
+                            case CombatMenuReturn.BlockAndMenu:
+
+                                break;
+
+                            case CombatMenuReturn.All:
+
+                                break;
                         }
                         break;
 

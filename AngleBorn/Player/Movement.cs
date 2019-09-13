@@ -102,7 +102,7 @@ namespace AngleBorn.Player
                         Dungeon DG = (Dungeon)SingleTon.GetCursorInstance().CurrentTile;
                         DrawInfoBox.Inputs.Add("You have entered a dungeon");
                         DG.ParrentMap = SingleTon.GetMapManagerInstance().CurrentMap;
-                        SingleTon.GetMapManagerInstance().CurrentMap = DG.LoadMap();    
+                        SingleTon.GetMapManagerInstance().CurrentMap = DG.LoadMap();
                         DG.DungeonMap.MyTile = SingleTon.GetCursorInstance().CurrentTile;
                         SingleTon.GetCursorInstance().CurrentTile = DG.LoadMap().SpawnPoint;
                         PlayManager.State = PlayerState.Dungeon;
@@ -192,7 +192,7 @@ namespace AngleBorn.Player
 
                 case ConsoleKey.Escape:
                     Dungeon DG = (Dungeon)SingleTon.GetMapManagerInstance().CurrentMap.MyTile;
-                    if(DG != null && DG.ParrentMap != null)
+                    if (DG != null && DG.ParrentMap != null)
                     {
                         SingleTon.GetCursorInstance().CurrentTile = DG.DungeonMap.MyTile;
                         SingleTon.GetMapManagerInstance().CurrentMap = DG.ParrentMap;
@@ -204,10 +204,28 @@ namespace AngleBorn.Player
             }
         }
 
-        public bool CombatMenuNavigation()
+        public CombatMenuReturn CombatMenuNavigation()
         {
+            switch (CW.ReadKey().Key)
+            {
+                case ConsoleKey.UpArrow:
+                    CombatDraw.IndexMenu--;
+                    break;
 
-            return true;
+                case ConsoleKey.DownArrow:
+                    CombatDraw.IndexMenu++;
+                    break;
+
+                case ConsoleKey.Enter:
+                    
+                    break;
+            }
+
+            return CombatMenuReturn.None;
         }
+    }
+    public enum CombatMenuReturn
+    {
+        None, All, Log, LogAndStatBlock, BlockAndMenu, Menu
     }
 }

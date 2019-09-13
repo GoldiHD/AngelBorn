@@ -1,6 +1,7 @@
 ﻿using AngelBorn.Player.Inventory;
 using AngelBorn.Player.PlayerClass;
 using AngelBorn.Player.RaceFolder;
+using AngleBorn.Items;
 using AngleBorn.Player;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace AngelBorn.Player
         public Stats Skills { get; private set; }
         private string _PlayerName;
         public InventoryManager inventory { get; private set; }
+        public List<BaseItem> Equipment = new List<BaseItem>();
+        public int Armor = 0;
         public CombatManager CBM { get; private set; }
         public string PlayerName
         {
