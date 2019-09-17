@@ -1,5 +1,6 @@
 ﻿using AngelBorn.Grapihcs;
 using AngelBorn.Grapihcs.MapGra;
+using AngelBorn.Menus;
 using AngelBorn.Tools;
 using AngelBorn.World;
 using AngelBorn.World.Tiles;
@@ -90,7 +91,7 @@ namespace AngleBorn.Player
                     if (SingleTon.GetCursorInstance().CurrentTile is CityTile)
                     {
                         CityTile CT = (CityTile)SingleTon.GetCursorInstance().CurrentTile;
-                        DrawInfoBox.Inputs.Add("You have entered " + CT.CityName);
+                        DrawInfoBox.AddToBox("You have entered " + CT.CityName);
                         CT.LoadMap().MapTile = SingleTon.GetCursorInstance().CurrentTile;
                         SingleTon.GetCursorInstance().CurrentTile = CT.CityMap.SpawnPoint;
                         SingleTon.GetMapManagerInstance().CurrentMap = CT.LoadMap();
@@ -100,7 +101,7 @@ namespace AngleBorn.Player
                     else if (SingleTon.GetCursorInstance().CurrentTile is Dungeon)
                     {
                         Dungeon DG = (Dungeon)SingleTon.GetCursorInstance().CurrentTile;
-                        DrawInfoBox.Inputs.Add("You have entered a dungeon");
+                        DrawInfoBox.AddToBox("You have entered a dungeon");
                         DG.ParrentMap = SingleTon.GetMapManagerInstance().CurrentMap;
                         SingleTon.GetMapManagerInstance().CurrentMap = DG.LoadMap();
                         DG.DungeonMap.MyTile = SingleTon.GetCursorInstance().CurrentTile;
@@ -122,6 +123,15 @@ namespace AngleBorn.Player
                         SingleTon.GetMapManagerInstance().CurrentMap = cityTile.ParrentMap;
                     }
                     return true;
+
+                case ConsoleKey.O:
+                    if (IntroMenu.test)
+                    {
+                        PlayManager.State = PlayerState.Combat;
+                        new CombatDraw().Draw(new Cord { X = 2, Y = 2 });
+                        CW.ReadKey();
+                    }
+                    return false;
 
                 default:
                     return false;
@@ -194,8 +204,10 @@ namespace AngleBorn.Player
                     Dungeon DG = (Dungeon)SingleTon.GetMapManagerInstance().CurrentMap.MyTile;
                     if (DG != null && DG.ParrentMap != null)
                     {
+
                         SingleTon.GetCursorInstance().CurrentTile = DG.DungeonMap.MyTile;
                         SingleTon.GetMapManagerInstance().CurrentMap = DG.ParrentMap;
+                        PlayManager.State = PlayerState.WorldMap;
                     }
                     return true;
 
@@ -209,23 +221,61 @@ namespace AngleBorn.Player
             switch (CW.ReadKey().Key)
             {
                 case ConsoleKey.UpArrow:
-                    CombatDraw.IndexMenu--;
-                    break;
+                    if (CombatDraw.IndexMenu > 0)
+                    {
+                        CombatDraw.IndexMenu--;
+                    }
+                    return CombatMenuReturn.Menu;
 
                 case ConsoleKey.DownArrow:
-                    CombatDraw.IndexMenu++;
-                    break;
+                    if (CombatDraw.ActiveMenuList.Count - 1 > CombatDraw.IndexMenu && CombatDraw.IndexMenu < 10)
+                    {
+                        CombatDraw.IndexMenu++;
+                    }
+                    return CombatMenuReturn.Menu;
 
                 case ConsoleKey.Enter:
-                    
-                    break;
-            }
+                    switch (CombatDraw.MenuState)
+                    {
+                        case CombatDraw.ActionMenus.Ablilites:
 
-            return CombatMenuReturn.None;
+                            break;
+
+                        case CombatDraw.ActionMenus.Items:
+
+                            break;
+
+                        case CombatDraw.ActionMenus.Main:
+                            switch (CombatDraw.IndexMenu)
+                            {
+                                case 0:
+                                    DrawInfoBox.AddToBox("You attacked " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
+                                    break;
+
+                                case 1:
+
+                                    break;
+
+                                case 2:
+
+                                    break;
+
+                                case 3:
+                                    DrawInfoBox.AddToBox("You tried to flee from " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
+                                    //add chance to flee
+                                    break;
+                            }
+                            break;
+                    }
+                    return CombatMenuReturn.All;
+
+                default:
+                    return CombatMenuReturn.None;
+            }
         }
     }
     public enum CombatMenuReturn
     {
-        None, All, Log, LogAndStatBlock, BlockAndMenu, Menu
+        None, All, Log, LogAndStatBlock, StatAndMenu, Menu, LogStatMenu
     }
 }

@@ -34,6 +34,7 @@ namespace AngleBorn.Grapihcs
         {
             Inputs.Insert(0, input);
         }
+
         public void Draw()
         {
             int line = 0;

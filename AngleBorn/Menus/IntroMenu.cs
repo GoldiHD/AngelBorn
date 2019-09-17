@@ -15,17 +15,12 @@ namespace AngelBorn.Menus
 {
     class IntroMenu
     {
-        bool test = true;
+        public static bool test = false;
 
         public void Run()
         {
             if (test)
             {
-                new CombatDraw().Draw(new Cord { X = 2, Y = 2});
-                Console.Read();
-                SingleTon.GetPlayerController().PlayerRace = PlayerRace.races[0];
-                SingleTon.GetPlayerController().PlayerClass = PlayerClass.playerClasses[0];
-                SingleTon.GetPlayerController().PlayerName = "Anon";
                 List<char> LoadingSym = new List<char> { '|', '/', '-', '\\' };
                 int x = 0;
                 while (true)

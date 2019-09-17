@@ -8,6 +8,8 @@ namespace AngleBorn.Items
 {
     class BaseItem
     {
+
+        public bool UseInCombat { get; protected set; }
         public string name { get; protected set; }
         public int Id { get; protected set; }
         public int Value { get; protected set; }

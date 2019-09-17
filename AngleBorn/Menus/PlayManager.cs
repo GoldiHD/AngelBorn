@@ -29,12 +29,16 @@ namespace AngleBorn.Menus
             State = PlayerState.WorldMap;
             CW.Clear();
             ViewMap.DrawMap();
-            DIB.Draw(2, MapDraw.ViewSize.Y * 2 + 3);
+
             while (true)
             {
                 switch (State)
                 {
                     case PlayerState.WorldMap:
+                        if (infoBoardSize < DrawInfoBox.Inputs.Count)
+                        {
+                            DIB.Draw(2, MapDraw.ViewSize.Y * 2 + 3);
+                        }
                         if (movement.CheckMoveMent())
                         {
                             ViewMap.DrawMap();
@@ -43,6 +47,10 @@ namespace AngleBorn.Menus
                         break;
 
                     case PlayerState.Dungeon:
+                        if (infoBoardSize < DrawInfoBox.Inputs.Count)
+                        {
+                            DIB.Draw(2, MapDraw.ViewSize.Y * 2 + 3);
+                        }
                         if (movement.MovementInDungeon())
                         {
                             ViewMap.DrawMap();
@@ -56,28 +64,27 @@ namespace AngleBorn.Menus
                     case PlayerState.Combat:
                         switch (movement.CombatMenuNavigation())
                         {
-                            case CombatMenuReturn.None:
-                                CD.Draw(new Cord { X = 2, Y = 2 });
-                                break;
 
                             case CombatMenuReturn.Menu:
                                 CD.RedrawAcionMenu();
                                 break;
 
                             case CombatMenuReturn.LogAndStatBlock:
-
+                                CD.ReDrawLog();
+                                CD.ReDrawStats();
                                 break;
 
                             case CombatMenuReturn.Log:
-
+                                CD.ReDrawLog();
                                 break; 
-
-                            case CombatMenuReturn.BlockAndMenu:
-
+                                
+                            case CombatMenuReturn.StatAndMenu:
+                                CD.RedrawAcionMenu();
+                                CD.ReDrawStats();
                                 break;
 
                             case CombatMenuReturn.All:
-
+                                CD.Draw(new Cord { X = 2, Y = 2 });
                                 break;
                         }
                         break;
@@ -86,10 +93,7 @@ namespace AngleBorn.Menus
 
                         break;
                 }
-                if (infoBoardSize < DrawInfoBox.Inputs.Count)
-                {
-                    DIB.Draw(2, MapDraw.ViewSize.Y * 2 + 3);
-                }
+
             }
         }
     }
