@@ -13,6 +13,9 @@ namespace AngelBorn.World.Enemies
         public int Level { get; private set; }
         public int Xp { get; private set; }
 
+        public float FleeChance { get; private set; }
+        public List<BaseTile> SpawnableTiles { get; private set; }
+
 
         public Enemy(int _health, int _damageMax, int _damageMin, int _level, string _name, int _goldMax, int _goldMin, int _xp)
         {

@@ -6,5 +6,7 @@ namespace AngelBorn.Player.Abilities
 {
     class BaseAbilites
     {
+        public string Name;
+        public string Description;
     }
 }

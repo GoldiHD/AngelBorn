@@ -1,4 +1,5 @@
-﻿using AngelBorn.Player.Inventory;
+﻿using AngelBorn.Player.Abilities;
+using AngelBorn.Player.Inventory;
 using AngelBorn.Player.PlayerClass;
 using AngelBorn.Player.RaceFolder;
 using AngleBorn.Items;
@@ -14,6 +15,7 @@ namespace AngelBorn.Player
         public int Steps;
         public BaseClass PlayerClass;
         public Race PlayerRace;
+        public List<BaseAbilites> AquiredAbilites = new List<BaseAbilites>();
         public int Level { get; private set; }
         public int Xp { get; private set; }
         public Stats Skills { get; private set; }

@@ -17,7 +17,7 @@ namespace AngleBorn.Grapihcs
         private string TopLine = "";
         private string BottomLine = "";
         private int LineHeightPos;
-        public static ActionMenus MenuState;
+        public static ActionMenus MenuState = ActionMenus.Main;
         private static Cord ActionMenuStart;
         private static Cord LogPosStart;
         private static Cord StatsPosStart;
@@ -27,8 +27,6 @@ namespace AngleBorn.Grapihcs
 
         public void Draw(Cord _Pos)
         {
-            MenuState = ActionMenus.Main;
-            ActiveMenuList = MenuTextOptions;
             CW.Clear();
             Pos = _Pos;
             LineHeightPos = 0;
@@ -133,15 +131,16 @@ namespace AngleBorn.Grapihcs
             switch(MenuState)
             {
                 case ActionMenus.Ablilites:
-
+                    ActiveMenuList = SingleTon.GetPlayerController().AquiredAbilites.Select(x => x.Name).ToList();
                     break;
 
 
                 case ActionMenus.Items:
-
+                    ActiveMenuList = SingleTon.GetPlayerController().inventory.Inventory.Where(x => x.UseInCombat == true).Select(x => x.name).ToList();
                     break;
 
                 case ActionMenus.Main:
+                    ActiveMenuList = MenuTextOptions;
                     CW.Write(FilloutString(Filler, true), ActionMenuStart.X, ActionMenuStart.Y + LineHeightPos);
                     LineHeightPos++;
                     int CurrentHeight = LineHeightPos;

@@ -31,6 +31,12 @@ namespace AngleBorn.Player
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X, SingleTon.GetCursorInstance().CurrentTile.Pos.Y - 1];
                         SingleTon.GetPlayerController().Steps++;
+                        if (SingleTon.GetPlayerController().CBM.CheckForEnemy(SingleTon.GetCursorInstance().CurrentTile))
+                        {
+                            PlayManager.State = PlayerState.Combat;
+                            new CombatDraw().Draw(new Cord { X = 2, Y = 2 });
+                            return false;
+                        }
                         return true;
                     }
                     else
@@ -148,6 +154,12 @@ namespace AngleBorn.Player
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X, SingleTon.GetCursorInstance().CurrentTile.Pos.Y - 1];
                         SingleTon.GetPlayerController().Steps++;
+                        if(SingleTon.GetPlayerController().CBM.CheckForEnemy(SingleTon.GetCursorInstance().CurrentTile))
+                        {
+                            PlayManager.State = PlayerState.Combat;
+                            new CombatDraw().Draw(new Cord { X = 2, Y = 2 });
+                            return false;
+                        }
                         return true;
                     }
                     else
@@ -242,7 +254,7 @@ namespace AngleBorn.Player
                             break;
 
                         case CombatDraw.ActionMenus.Items:
-
+                            
                             break;
 
                         case CombatDraw.ActionMenus.Main:
@@ -253,15 +265,16 @@ namespace AngleBorn.Player
                                     break;
 
                                 case 1:
-
+                                    CombatDraw.MenuState = CombatDraw.ActionMenus.Items;
                                     break;
 
                                 case 2:
-
+                                    CombatDraw.MenuState = CombatDraw.ActionMenus.Ablilites;
                                     break;
 
                                 case 3:
                                     DrawInfoBox.AddToBox("You tried to flee from " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
+                                    if()
                                     //add chance to flee
                                     break;
                             }
