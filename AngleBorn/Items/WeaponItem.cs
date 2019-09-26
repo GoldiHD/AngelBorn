@@ -12,26 +12,31 @@ namespace AngleBorn.Items
         public int Damage { get; private set; }
         public int Durability { get; private set; }
 
-        public WeaponItem(string _name, ItemType _itemType, int _value, bool _usedInCombat, int _damage, float _durability)
+        public WeaponItem(string _name, ItemType _itemType, int _value, bool _usedInCombat, int _damage, int _durability)
         {
             name = _name;
             Id = SingleTon.GetItemManager().AllItems.Count;
+            itemType = _itemType;
+            Value = _value;
+            UseInCombat = _usedInCombat;
+            Damage = _damage;
+            Durability = _durability;
         }
 
         public override void Equip()
         {
-            if (SingleTon.GetPlayerController().inventory.MainHand != null)
+            if (SingleTon.GetPlayerController().Inventory.MainHand != null)
             {
-                SingleTon.GetPlayerController().inventory.MainHand.UnEquip();
+                SingleTon.GetPlayerController().Inventory.MainHand.UnEquip();
             }
-            SingleTon.GetPlayerController().inventory.MainHand = this;
+            SingleTon.GetPlayerController().Inventory.MainHand = this;
             SingleTon.GetPlayerController().Skills.Power.AddWeaponDamage(Damage);
         }
 
         public override void UnEquip()
         {
             SingleTon.GetPlayerController().Skills.Power.RemoveDamage(Damage);
-            SingleTon.GetPlayerController().inventory.MainHand = null;
+            SingleTon.GetPlayerController().Inventory.MainHand = null;
         }
     }
 }

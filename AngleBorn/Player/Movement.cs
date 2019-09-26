@@ -327,7 +327,6 @@ namespace AngleBorn.Player
                 case ConsoleKey.H:
                     SingleTon.GetPlayerController().Skills.Vitallity.Heal(1000);
                     return CombatMenuReturn.None;
-                    break;
                 default:
                     return CombatMenuReturn.None;
             }

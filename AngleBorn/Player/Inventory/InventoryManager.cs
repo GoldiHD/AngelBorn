@@ -14,7 +14,7 @@ namespace AngelBorn.Player.Inventory
         public ArmorItem PantsArmor;
         public ArmorItem ShoesArmor;
         public WeaponItem MainHand;
-        public BaseItem OffHand;
+        public ArmorItem OffHand;
 
         public int Gold { get; private set; }
         public void AddGold(int amount)

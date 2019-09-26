@@ -19,7 +19,7 @@ namespace AngleBorn.Items
             //Items
 
             //Weapons
-            AllItems.Add(new WeaponItem("Wooden Stick", ItemType.Weapons, 2, true, 2, 1f));
+            AllItems.Add(new WeaponItem("Wooden Stick", ItemType.Weapons, 2, true, 2, 100));
             //Armor
 
             //Consumable

@@ -11,11 +11,9 @@ namespace AngleBorn.Grapihcs
     class CombatDraw
     {
         public static int IndexMenu;
-        private string[] Cor = { "╔", "╗", "╝", "╚" };
-        private string Side = "║";
-        private string TopBot = "═";
-        private string TopLine = "";
-        private string BottomLine = "";
+        private readonly string[] Cor = { "╔", "╗", "╝", "╚" };
+        private readonly string Side = "║";
+        private readonly string TopBot = "═";
         private int LineHeightPos;
         public static ActionMenus MenuState = ActionMenus.Main;
         private static Cord ActionMenuStart;
@@ -23,7 +21,7 @@ namespace AngleBorn.Grapihcs
         private static Cord StatsPosStart;
         private Cord Pos;
         public static List<string> ActiveMenuList;
-        private List<string> MenuTextOptions = new List<string> { "Attack", "Items", "Magic", "Flee" };
+        private readonly List<string> MenuTextOptions = new List<string> { "Attack", "Items", "Magic", "Flee" };
 
         public void Draw(Cord _Pos)
         {
@@ -64,18 +62,6 @@ namespace AngleBorn.Grapihcs
             CW.Write(BigLine, Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos++;
             CW.Write(FilloutString(BigLine, false), Pos.X, Pos.Y + LineHeightPos);
-
-
-        }
-
-        private List<string> StatBlockDraw()
-        {
-            List<string> DataReturn = new List<string>();
-            DataReturn.Add(Side + " Health: " + SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent + "/" + SingleTon.GetPlayerController().Skills.Vitallity.Health + " ");
-            DataReturn.Add(Side + " Mana: " + SingleTon.GetPlayerController().Skills.Magic.ManaCurrent + "/" + SingleTon.GetPlayerController().Skills.Magic.Mana + " ");
-            DataReturn.Add(Side + " Damage: " + SingleTon.GetPlayerController().Skills.Power.ExtraAttack + " + " + SingleTon.GetPlayerController().Skills.Power.Buff + " ");
-            DataReturn.Add(Side + " Armor: " + SingleTon.GetPlayerController().Armor + " ");
-            return DataReturn;
         }
 
         public void ReDrawStats()
@@ -148,7 +134,7 @@ namespace AngleBorn.Grapihcs
 
 
                 case ActionMenus.Items:
-                    ActiveMenuList = SingleTon.GetPlayerController().inventory.Inventory.Where(x => x.UseInCombat == true).Select(x => x.name).ToList();
+                    ActiveMenuList = SingleTon.GetPlayerController().Inventory.Inventory.Where(x => x.UseInCombat == true).Select(x => x.name).ToList();
                     break;
 
                 case ActionMenus.Main:
