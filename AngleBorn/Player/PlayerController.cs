@@ -18,10 +18,10 @@ namespace AngelBorn.Player
         public List<BaseAbilites> AquiredAbilites = new List<BaseAbilites>();
         public int Level { get; private set; }
         public int Xp { get; private set; }
+        public int NextLevelXP { get; private set; }
         public Stats Skills { get; private set; }
         private string _PlayerName;
         public InventoryManager inventory { get; private set; }
-        public List<BaseItem> Equipment = new List<BaseItem>();
         public int Armor = 0;
         public CombatManager CBM { get; private set; }
         public string PlayerName
@@ -44,6 +44,11 @@ namespace AngelBorn.Player
             }
         }
 
+        public void LevelUp()
+        {
+
+        }
+
         public PlayerController()
         {
             CBM = new CombatManager();
@@ -51,6 +56,7 @@ namespace AngelBorn.Player
             inventory = new InventoryManager();
             Skills = new Stats(1, 1, 1, 1);
             Xp = 0;
+            NextLevelXP = (int)(((float)Level * 1.25f) * 2) + 10;
         }
 
     }

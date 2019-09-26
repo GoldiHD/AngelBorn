@@ -12,11 +12,14 @@ namespace AngleBorn.Items
         public ItemManager()
         {
             AllItems = new List<BaseItem>();
+        }
 
+        public void SetupItems()
+        {
             //Items
 
             //Weapons
-
+            AllItems.Add(new WeaponItem("Wooden Stick", ItemType.Weapons, 2, true, 2, 1f));
             //Armor
 
             //Consumable

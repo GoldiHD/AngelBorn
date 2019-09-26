@@ -15,7 +15,7 @@ namespace AngelBorn.Menus
 {
     class IntroMenu
     {
-        public static bool test = true;
+        public static bool test = false;
 
         public void Run()
         {
@@ -26,17 +26,18 @@ namespace AngelBorn.Menus
                 SingleTon.GetPlayerController().PlayerName = "";
                 List<char> LoadingSym = new List<char> { '|', '/', '-', '\\' };
                 int x = 0;
+                Console.Clear();
                 while (true)
                 {
 
                     if (SingleTon.GetMapManagerInstance().MapCreators[0].IsAlive)
                     {
-                        Console.Clear();
+
                         if (x == LoadingSym.Count)
                         {
                             x = 0;
                         }
-                        Console.Write("Loading..." + LoadingSym[x]);
+                        CW.Write("Loading..." + LoadingSym[x],0, 0);
                         x++;
                     }
                     else

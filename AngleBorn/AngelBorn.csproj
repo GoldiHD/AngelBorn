@@ -47,7 +47,9 @@
     <Compile Include="Grapihcs\DrawInfoBox.cs" />
     <Compile Include="Grapihcs\DrawStats.cs" />
     <Compile Include="Grapihcs\MapDraw.cs" />
+    <Compile Include="Items\ArmorItem.cs" />
     <Compile Include="Items\BaseItem.cs" />
+    <Compile Include="Items\EquippableItem.cs" />
     <Compile Include="Items\ItemManager.cs" />
     <Compile Include="Items\WeaponItem.cs" />
     <Compile Include="Menus\IntroMenu.cs" />

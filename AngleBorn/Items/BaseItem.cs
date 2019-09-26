@@ -19,6 +19,6 @@ namespace AngleBorn.Items
 
     public enum ItemType
     {
-        Weapons, Armor, Consumable, Trash
+        Weapons, Armor, Consumable, Trash, Shield
     }
 }

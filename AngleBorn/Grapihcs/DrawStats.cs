@@ -21,7 +21,7 @@ namespace AngelBorn.Grapihcs
             Cord Pos = CW.GetPos();
             string FillerLine = "│";
             string Firsslot = "│ Name: " + SingleTon.GetPlayerController().PlayerName + " │ Level: " + SingleTon.GetPlayerController().Level + " │ Job: " + SingleTon.GetPlayerController().PlayerClass.Name + " ";
-            string SecSlot = "│ Race: " + SingleTon.GetPlayerController().PlayerRace.Name + " │ Health: " + SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent + "/" + SingleTon.GetPlayerController().Skills.Vitallity.Health + " │ Mana: " + SingleTon.GetPlayerController().Skills.Magic.ManaCurrent + "/" + SingleTon.GetPlayerController().Skills.Magic.Mana+ " ";
+            string SecSlot = "│ Race: " + SingleTon.GetPlayerController().PlayerRace.Name + " │ Health: " + SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent + "/" + SingleTon.GetPlayerController().Skills.Vitallity.Health + " │ Mana: " + SingleTon.GetPlayerController().Skills.Magic.ManaCurrent + "/" + SingleTon.GetPlayerController().Skills.Magic.Mana + " ";
             if (Firsslot.Length > SecSlot.Length)
             {
                 Lenght = Firsslot.Length;
@@ -83,6 +83,40 @@ namespace AngelBorn.Grapihcs
             CW.Write("│", Pos.X + (Lenght), Pos.Y + line);
             line++;
             CW.WriteLine(FillerLine, Pos.X, Pos.Y + line);
+            line++;
+            CW.Write("│ XP: " + SingleTon.GetPlayerController().Xp + "/" + SingleTon.GetPlayerController().NextLevelXP, Pos.X, Pos.Y + line);
+            CW.Write("│", Pos.X + (Lenght), Pos.Y + line);
+            line++;
+            CW.Write("│ |" + CalculateLevelProgress()+ "|", Pos.X, Pos.Y + line);
+            CW.Write("│", Pos.X + (Lenght), Pos.Y + line);
+            line++;
+            CW.WriteLine(FillerLine, Pos.X, Pos.Y + line);
+        }
+
+        private string CalculateLevelProgress()
+        {
+            string ProgressionString = "";
+            float Percentage;
+            try
+            {
+                Percentage = ((float)SingleTon.GetPlayerController().Xp / (float)SingleTon.GetPlayerController().NextLevelXP) * 100f;
+            }
+            catch
+            {
+                Percentage = 0;
+            }
+
+            for (int i = 0; i < ((int)Percentage / 5); i++)
+            {
+                ProgressionString += "=";
+            }
+            int lenght = ProgressionString.Length;
+            for (int x = 0; x < 20 - lenght; x++)
+            {
+                ProgressionString += "-";
+            }
+
+            return ProgressionString;
         }
     }
 }

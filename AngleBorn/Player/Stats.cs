@@ -27,7 +27,7 @@ namespace AngelBorn.Player
         public int _lvl { get; private set; }
         public int ExtraAttack { get; private set; }
         public Power(int lvl)
-        {    
+        {
             _lvl = lvl;
             AddBonus();
         }
@@ -46,13 +46,32 @@ namespace AngelBorn.Player
 
         private void AddBonus()
         {
-            if(_lvl < 0 )
+            if (_lvl < 0)
             {
                 _lvl = 0;
             }
-            ExtraAttack = _lvl / 5;
+            ExtraAttack = _lvl / 3;
         }
 
+        public void AddWeaponDamage(int _weaponDamage)
+        {
+            if (_weaponDamage > 0)
+            {
+                Buff += _weaponDamage;
+            }
+        }
+
+        public void RemoveDamage(int _weaponDamage)
+        {
+            if(Buff - _weaponDamage >= 0)
+            {
+                Buff -= _weaponDamage;
+            }
+            else
+            {
+                Buff = 0;
+            }
+        }
     }
 
     public class Vitallity //health
@@ -88,6 +107,36 @@ namespace AngelBorn.Player
             }
             Health = _lvl * 5;
             HealthCurrent = Health;
+        }
+
+        public void Heal(int amount)
+        {
+            if(amount > 0)
+            {
+                if(HealthCurrent + amount > Health)
+                {
+                    HealthCurrent = Health;
+                }
+                else
+                {
+                    HealthCurrent += amount;
+                }
+            }
+        }
+
+        public void TakeDamage(int damage)
+        {
+            if (damage >= 0)
+            {
+                if (HealthCurrent - damage >= 0)
+                {
+                    HealthCurrent -= damage;
+                }
+                else
+                {
+                    HealthCurrent = 0;
+                }
+            }
         }
     }
 

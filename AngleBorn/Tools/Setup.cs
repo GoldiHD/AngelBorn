@@ -11,7 +11,10 @@ namespace AngelBorn.Tools
     {
         public void Start()
         {
+            SingleTon.SetRandomKey();
             SingleTon.GetMapManagerInstance();
+            SingleTon.GetRandomNum(0, 2);
+            SingleTon.GetItemManager().SetupItems();
             Console.Title = "Angelborn";
             Console.CursorVisible = false;
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);

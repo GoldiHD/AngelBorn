@@ -18,13 +18,14 @@ namespace AngleBorn.Player
         public CombatManager()
         {
             CombatDraw.MenuState = CombatDraw.ActionMenus.Main;
-            enemyFighting = SingleTon.GetEnemies().enemies[0];
         }
 
         public bool CheckForEnemy(BaseTile Tile)
         {
             List<Enemy> enemiesToPick = SingleTon.GetEnemies().enemies.Where(x => x.SpawnableTiles.Any(y => y.TileName == Tile.TileName)).ToList();
+            enemyFighting = enemiesToPick[SingleTon.GetRandomNum(0, enemiesToPick.Count)];
             return true;
         }
     }
 }
+

@@ -19,6 +19,7 @@ namespace AngelBorn.World
         public BaseTile MyTile;
         public BaseTile[,] Tiles;
         public BaseTile MapTile;
+        public List<BaseTile> SetRooms = new List<BaseTile>();
         public Cord MapSize { get; private set; }
         public Map(Cord mapSize)
         {
@@ -182,6 +183,9 @@ namespace AngelBorn.World
             bool RoomFound = false;
             int SideToCheck;
             FillOutNull();
+            Tiles[MapSize.X / 2, MapSize.Y / 2] = new Dungeon();
+            SetRooms.Add(Tiles[MapSize.X / 2, MapSize.Y / 2]);
+            Tiles[MapSize.X / 2, MapSize.Y / 2].Pos = new Cord { X = MapSize.X / 2, Y = MapSize.Y / 2 };
             Test = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
             for (int i = 1; i < (((float)MapSize.X * (float)MapSize.Y) / 1.5f); i++)
             {
@@ -240,6 +244,7 @@ namespace AngelBorn.World
                     if (RoomFound)
                     {
                         Tiles[Test.X, Test.Y] = new BaseTile().CopyOf(tiles[SingleTon.GetRandomNum(0, tiles.Count)]);
+                        SetRooms.Add(Tiles[Test.X, Test.Y]);
                         Tiles[Test.X, Test.Y].Pos = Test;
                         break;
                     }
@@ -259,6 +264,7 @@ namespace AngelBorn.World
             }
             SetDungeons(Temp.AmountOfDungeonOrHouses);
             FillLocations(Locations);
+
         }
 
         public void SetPlayerSpawn()
@@ -282,10 +288,13 @@ namespace AngelBorn.World
             Cord Test;
             do
             {
-                Test = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
+                int x = SingleTon.GetRandomNum(0, MapSize.X);
+                int y = SingleTon.GetRandomNum(0, MapSize.Y);
+                Test = new Cord { X = x, Y = y  };
                 if (Tiles[Test.X, Test.Y].MyType == TileType.Inpassable)
                 {
                     Tiles[Test.X, Test.Y] = new BaseTile().CopyOf(tiles[SingleTon.GetRandomNum(0, tiles.Count)]);
+                    SetRooms.Add(Tiles[Test.X, Test.Y]);
                     Tiles[Test.X, Test.Y].Pos = new Cord { X = Test.X, Y = Test.Y };
                     RoomFound = true;
                 }
@@ -297,7 +306,8 @@ namespace AngelBorn.World
             Cord NewCord;
             while (true)
             {
-                NewCord = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
+                NewCord = SetRooms[SingleTon.GetRandomNum(0, SetRooms.Count)].Pos;
+                //NewCord = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
                 if (Tiles[NewCord.X, NewCord.Y].MyType == TileType.Normal)
                 {
                     return NewCord;

@@ -47,25 +47,8 @@ namespace AngleBorn.Grapihcs
             CW.Write(FilloutString(BigLine, false), Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos += 2;
             StatsPosStart = new Cord { X = Pos.X, Y = Pos.Y + LineHeightPos };
-            List<string> StatsBlockList = StatBlockDraw();
-            string SizeBox = "";
-            for (int i = 0; i < StatsBlockList.Count; i++)
-            {
-                if (StatsBlockList[i].Length > SizeBox.Length)
-                {
-                    SizeBox = StatsBlockList[i];
-                }
-            }
-            CW.Write(FilloutString(SizeBox + " ", true), Pos.X, Pos.Y + LineHeightPos);
-            LineHeightPos++;
-            foreach (string element in StatsBlockList)
-            {
-                CW.Write(element, Pos.X, Pos.Y + LineHeightPos);
-                CW.Write(Side, Pos.X + (SizeBox.Length), Pos.Y + LineHeightPos);
-                LineHeightPos++;
-            }
-            CW.Write(FilloutString(SizeBox + " ", false), Pos.X, Pos.Y + LineHeightPos);
-            LineHeightPos++;
+            ReDrawStats();
+            LineHeightPos += 9;
             ActionMenuStart = new Cord { X = Pos.X, Y = Pos.Y + LineHeightPos };
             RedrawAcionMenu();
             LineHeightPos = 10 + ActionMenuStart.Y;
@@ -100,35 +83,64 @@ namespace AngleBorn.Grapihcs
             LineHeightPos = 0;
             string BigestText = "";
             List<string> StatTexts = new List<string>();
-            StatTexts.Add(" Health: " + SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent + "/" + SingleTon.GetPlayerController().Skills.Vitallity.Health + " ");
-            StatTexts.Add(" Mana: " + SingleTon.GetPlayerController().Skills.Magic.ManaCurrent + "/" + SingleTon.GetPlayerController().Skills.Magic.Mana + " ");
-            StatTexts.Add(" Damage: " + SingleTon.GetPlayerController().Skills.Power.ExtraAttack + " + " + SingleTon.GetPlayerController().Skills.Power.Buff + " ");
+            StatTexts.Add(" Health: " + SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent + "/" + SingleTon.GetPlayerController().Skills.Vitallity.Health + "  ");
+            StatTexts.Add(" Mana: " + SingleTon.GetPlayerController().Skills.Magic.ManaCurrent + "/" + SingleTon.GetPlayerController().Skills.Magic.Mana + "  ");
+            StatTexts.Add(" Damage: " + SingleTon.GetPlayerController().Skills.Power.ExtraAttack + " + " + SingleTon.GetPlayerController().Skills.Power.Buff + "  ");
             StatTexts.Add(" Armor: " + SingleTon.GetPlayerController().Armor + " ");
-            foreach(string element in StatTexts)
+            foreach (string element in StatTexts)
             {
-                if(element.Length > BigestText.Length)
+                if (element.Length > BigestText.Length)
                 {
-                    BigestText = element;
+                    BigestText = element + " ";
                 }
             }
 
             CW.Write(FilloutString(BigestText, true), StatsPosStart.X, StatsPosStart.Y + LineHeightPos);
             LineHeightPos++;
-            foreach(string element in StatTexts)
+            foreach (string element in StatTexts)
             {
                 CW.Write(Side, StatsPosStart.X, StatsPosStart.Y + LineHeightPos);
                 CW.Write(element, StatsPosStart.X + 1, StatsPosStart.Y + LineHeightPos);
                 CW.Write(Side, StatsPosStart.X + (BigestText.Length - 1), StatsPosStart.Y + LineHeightPos);
                 LineHeightPos++;
             }
-            CW.Write(FilloutString(BigestText, true), StatsPosStart.X, StatsPosStart.Y + LineHeightPos);
-        }
+            CW.Write(FilloutString(BigestText, false), StatsPosStart.X, StatsPosStart.Y + LineHeightPos);
+
+            //enemy
+
+            LineHeightPos = 0;
+            BigestText = "";
+            StatTexts.Clear();
+            StatTexts.Add(" Health: " + SingleTon.GetPlayerController().CBM.enemyFighting.Health + "/" + SingleTon.GetPlayerController().CBM.enemyFighting.MaxHp + "  ");
+            StatTexts.Add(" Damage: " + SingleTon.GetPlayerController().CBM.enemyFighting.Damage + "  ");
+            StatTexts.Add(" ");
+            StatTexts.Add(" ");
+            foreach (string element in StatTexts)
+            {
+                if (element.Length > BigestText.Length)
+                {
+                    BigestText = element + " ";
+                }
+            }
+            int Lenght = StatsPosStart.X + (Console.WindowWidth - (StatsPosStart.X + 1 + BigestText.Length));
+            CW.Write(FilloutString(BigestText, true),Lenght, StatsPosStart.Y + LineHeightPos);
+            LineHeightPos++;
+            foreach (string element in StatTexts)
+            {
+                CW.Write(Side, Lenght, StatsPosStart.Y + LineHeightPos);
+                CW.Write(element, Lenght + 1, StatsPosStart.Y + LineHeightPos);
+                CW.Write(Side, Lenght + (BigestText.Length - 1), StatsPosStart.Y + LineHeightPos);
+                LineHeightPos++;
+            }
+            CW.Write(FilloutString(BigestText, false), Lenght, StatsPosStart.Y + LineHeightPos);
+
+          }
 
         public void RedrawAcionMenu()
         {
             string Filler = "oooo oooo oooo oooo oooo oooo";
             LineHeightPos = 0;
-            switch(MenuState)
+            switch (MenuState)
             {
                 case ActionMenus.Ablilites:
                     ActiveMenuList = SingleTon.GetPlayerController().AquiredAbilites.Select(x => x.Name).ToList();
@@ -144,18 +156,18 @@ namespace AngleBorn.Grapihcs
                     CW.Write(FilloutString(Filler, true), ActionMenuStart.X, ActionMenuStart.Y + LineHeightPos);
                     LineHeightPos++;
                     int CurrentHeight = LineHeightPos;
-                    for (int i = 0; i< MenuTextOptions.Count; i++)
+                    for (int i = 0; i < MenuTextOptions.Count; i++)
                     {
-                        if(IndexMenu == i)
+                        if (IndexMenu == i)
                         {
 
-                            CW.Write(" [" + MenuTextOptions[i] + "] ", ActionMenuStart.X + 1, ActionMenuStart.Y + LineHeightPos );
+                            CW.Write(" [" + MenuTextOptions[i] + "] ", ActionMenuStart.X + 1, ActionMenuStart.Y + LineHeightPos);
                             LineHeightPos++;
                         }
 
                         else
                         {
-                            CW.Write("  " + MenuTextOptions[i] + " ", ActionMenuStart.X +1 , ActionMenuStart.Y + LineHeightPos);
+                            CW.Write("  " + MenuTextOptions[i] + " ", ActionMenuStart.X + 1, ActionMenuStart.Y + LineHeightPos);
                             LineHeightPos++;
                         }
                     }
@@ -173,14 +185,14 @@ namespace AngleBorn.Grapihcs
         public void ReDrawLog()
         {
             LineHeightPos = 0;
-            string FillText ="";
+            string FillText = "";
             LineHeightPos = 0;
 
-            for (int i = 0; i < Console.WindowWidth  - LogPosStart.X; i++)
+            for (int i = 0; i < Console.WindowWidth - LogPosStart.X; i++)
             {
                 FillText += "o";
             }
-            CW.Write(FilloutString(FillText, true), LogPosStart.X, LogPosStart.Y+LineHeightPos);
+            CW.Write(FilloutString(FillText, true), LogPosStart.X, LogPosStart.Y + LineHeightPos);
             LineHeightPos++;
             int TimesToWrite;
             if (DrawInfoBox.Inputs.Count < 10)
@@ -191,7 +203,7 @@ namespace AngleBorn.Grapihcs
             {
                 TimesToWrite = 10;
             }
-            for(int i = 0; i < TimesToWrite; i++)
+            for (int i = 0; i < TimesToWrite; i++)
             {
                 CW.Write(Side, LogPosStart.X, LogPosStart.Y + LineHeightPos);
                 CW.Write(DrawInfoBox.Inputs[i], LogPosStart.X + 2, LogPosStart.Y + LineHeightPos);

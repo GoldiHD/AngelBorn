@@ -31,13 +31,7 @@ namespace AngleBorn.Player
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X, SingleTon.GetCursorInstance().CurrentTile.Pos.Y - 1];
                         SingleTon.GetPlayerController().Steps++;
-                        if (SingleTon.GetPlayerController().CBM.CheckForEnemy(SingleTon.GetCursorInstance().CurrentTile))
-                        {
-                            PlayManager.State = PlayerState.Combat;
-                            new CombatDraw().Draw(new Cord { X = 2, Y = 2 });
-                            return false;
-                        }
-                        return true;
+                        return CheckForMonster();
                     }
                     else
                     {
@@ -49,7 +43,7 @@ namespace AngleBorn.Player
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X, SingleTon.GetCursorInstance().CurrentTile.Pos.Y + 1];
                         SingleTon.GetPlayerController().Steps++;
-                        return true;
+                        return CheckForMonster();
                     }
                     else
                     {
@@ -61,7 +55,7 @@ namespace AngleBorn.Player
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X - 1, SingleTon.GetCursorInstance().CurrentTile.Pos.Y];
                         SingleTon.GetPlayerController().Steps++;
-                        return true;
+                        return CheckForMonster();
                     }
                     else
                     {
@@ -73,7 +67,7 @@ namespace AngleBorn.Player
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X + 1, SingleTon.GetCursorInstance().CurrentTile.Pos.Y];
                         SingleTon.GetPlayerController().Steps++;
-                        return true;
+                        return CheckForMonster();
                     }
                     else
                     {
@@ -154,13 +148,7 @@ namespace AngleBorn.Player
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X, SingleTon.GetCursorInstance().CurrentTile.Pos.Y - 1];
                         SingleTon.GetPlayerController().Steps++;
-                        if(SingleTon.GetPlayerController().CBM.CheckForEnemy(SingleTon.GetCursorInstance().CurrentTile))
-                        {
-                            PlayManager.State = PlayerState.Combat;
-                            new CombatDraw().Draw(new Cord { X = 2, Y = 2 });
-                            return false;
-                        }
-                        return true;
+                        return CheckForMonster();
                     }
                     else
                     {
@@ -171,7 +159,7 @@ namespace AngleBorn.Player
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X, SingleTon.GetCursorInstance().CurrentTile.Pos.Y + 1];
                         SingleTon.GetPlayerController().Steps++;
-                        return true;
+                        return CheckForMonster();
                     }
                     else
                     {
@@ -182,7 +170,7 @@ namespace AngleBorn.Player
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X - 1, SingleTon.GetCursorInstance().CurrentTile.Pos.Y];
                         SingleTon.GetPlayerController().Steps++;
-                        return true;
+                        return CheckForMonster();
                     }
                     else
                     {
@@ -193,7 +181,7 @@ namespace AngleBorn.Player
                     {
                         SingleTon.GetCursorInstance().CurrentTile = SingleTon.GetMapManagerInstance().CurrentMap.Tiles[SingleTon.GetCursorInstance().CurrentTile.Pos.X + 1, SingleTon.GetCursorInstance().CurrentTile.Pos.Y];
                         SingleTon.GetPlayerController().Steps++;
-                        return true;
+                        return CheckForMonster();
                     }
                     else
                     {
@@ -228,6 +216,22 @@ namespace AngleBorn.Player
             }
         }
 
+        public bool CheckForMonster()
+        {
+            if (SingleTon.PercentChance(SingleTon.GetCursorInstance().CurrentTile.ChanceAtMonsters))
+            {
+                PlayManager.State = PlayerState.Combat;
+                SingleTon.GetPlayerController().CBM.CheckForEnemy(SingleTon.GetCursorInstance().CurrentTile);
+                DrawInfoBox.AddToBox("You have encountered a " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
+                new CombatDraw().Draw(new Cord { X = 2, Y = 2 });
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public CombatMenuReturn CombatMenuNavigation()
         {
             switch (CW.ReadKey().Key)
@@ -254,7 +258,7 @@ namespace AngleBorn.Player
                             break;
 
                         case CombatDraw.ActionMenus.Items:
-                            
+
                             break;
 
                         case CombatDraw.ActionMenus.Main:
@@ -262,6 +266,27 @@ namespace AngleBorn.Player
                             {
                                 case 0:
                                     DrawInfoBox.AddToBox("You attacked " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
+                                    SingleTon.GetPlayerController().CBM.enemyFighting.TakeDamage(SingleTon.GetPlayerController().Skills.Power.Buff + SingleTon.GetPlayerController().Skills.Power.ExtraAttack);
+                                    SingleTon.GetPlayerController().Skills.Vitallity.TakeDamage(SingleTon.GetPlayerController().CBM.enemyFighting.Damage);
+                                    if(SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent == 0)
+                                    {
+                                       
+                                    }
+                                    else if(SingleTon.GetPlayerController().CBM.enemyFighting.Health == 0)
+                                    {
+                                        if (SingleTon.GetCursorInstance().CurrentTile.MyType == TileType.Dungeon)
+                                        {
+                                            PlayManager.State = PlayerState.Dungeon;
+                                        }
+                                        else if (SingleTon.GetCursorInstance().CurrentTile.MyType == TileType.Normal)
+                                        {
+                                            PlayManager.State = PlayerState.WorldMap;
+                                        }
+                                        SingleTon.GetPlayerController().AddXP(SingleTon.GetPlayerController().CBM.enemyFighting.Xp);
+                                        CW.Clear();
+                                        MapD.DrawMap();
+                                        return CombatMenuReturn.None;
+                                    }
                                     break;
 
                                 case 1:
@@ -274,14 +299,35 @@ namespace AngleBorn.Player
 
                                 case 3:
                                     DrawInfoBox.AddToBox("You tried to flee from " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
-                                    if()
-                                    //add chance to flee
+                                    if (SingleTon.PercentChance(SingleTon.GetPlayerController().CBM.enemyFighting.FleeChance))
+                                    {
+                                        DrawInfoBox.AddToBox("You succeded and escaped " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
+                                        if (SingleTon.GetCursorInstance().CurrentTile.MyType == TileType.Dungeon)
+                                        {
+                                            PlayManager.State = PlayerState.Dungeon;
+                                        }
+                                        else if(SingleTon.GetCursorInstance().CurrentTile.MyType == TileType.Normal)
+                                        {
+                                            PlayManager.State = PlayerState.WorldMap;
+                                        }
+                                        CW.Clear();
+                                        MapD.DrawMap();
+                                        return CombatMenuReturn.None;
+                                    }
+                                    else
+                                    {
+                                        DrawInfoBox.AddToBox("You failed and didn't escape " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
+                                    }
                                     break;
                             }
                             break;
                     }
                     return CombatMenuReturn.All;
 
+                case ConsoleKey.H:
+                    SingleTon.GetPlayerController().Skills.Vitallity.Heal(1000);
+                    return CombatMenuReturn.None;
+                    break;
                 default:
                     return CombatMenuReturn.None;
             }

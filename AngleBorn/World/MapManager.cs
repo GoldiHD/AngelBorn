@@ -17,7 +17,7 @@ namespace AngelBorn.World
         public List<Thread> MapCreators;
         public List<Map> Dungeons { get; private set; }
         public List<BaseNPC> NPCS = new List<BaseNPC>();
-        public EnemyManager EM = new EnemyManager();
+        public EnemyManager EM;
 
         public MapManager()
         {
@@ -54,10 +54,11 @@ namespace AngelBorn.World
         private void CreateTiles()
         {
             //create tiles and towns
-            Tiles.Add(new BaseTile() { TileName = "Moutain", Walkable = false, MyType = TileType.Inpassable });
-            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "GrassPlain", Description = "An open field of grass, you're not likely to meet anyone here", Walkable = true });
-            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Forest", Description = "Are normal forest you're likely to find things here", Walkable = true });
-            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Dungeon Floor", Description = "a dusty floor in the in a wet and cold dungeon", Walkable = true });
+            Tiles.Add(new BaseTile() { TileName = "Moutain", Walkable = false, MyType = TileType.Inpassable, MinChanceMonster = 0f, MaxChanceMonster = 0f });
+            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "GrassPlain", Description = "An open field of grass, you're not likely to meet anyone here", Walkable = true, MinChanceMonster = 0.01f, MaxChanceMonster = 0.05f});
+            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Forest", Description = "Are normal forest you're likely to find things here", Walkable = true, MinChanceMonster = 0.05f, MaxChanceMonster = 0.2f });
+            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Dungeon Floor", Description = "a dusty floor in the in a wet and cold dungeon", Walkable = true, MinChanceMonster =  0.2f, MaxChanceMonster = 0.25f});
+            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Swamp", Description = "A swampy area submerged in water and ", Walkable = true, MinChanceMonster = 0.15f, MaxChanceMonster = 0.23f });
         }
 
         private void CreateNPCS()
@@ -106,7 +107,7 @@ namespace AngelBorn.World
             Towns.Add(new CityTile("Taxned", Maps[0], Maps[9]));
             Towns.Add(new CityTile("Kunzud", Maps[0], Maps[10]));
 
-            MapCreators.Add(Maps[0].GenerateMapThread(new List<BaseTile> { Tiles[1], Tiles[2] }, new List<CityTile> { Towns[0],  Towns[1], Towns[2], Towns[3], Towns[4]}, new List<BaseCharacters>(), 20));
+            MapCreators.Add(Maps[0].GenerateMapThread(new List<BaseTile> { Tiles[1], Tiles[2], Tiles[4] }, new List<CityTile> { Towns[0],  Towns[1], Towns[2], Towns[3], Towns[4]}, new List<BaseCharacters>(), 20));
             MapCreators.Add(Maps[1].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0]}, 15, Towns[0]));
             MapCreators.Add(Maps[2].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0]},20, Towns[1]));
             MapCreators.Add(Maps[3].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0]},10, Towns[2]));
@@ -117,6 +118,8 @@ namespace AngelBorn.World
             MapCreators.Add(Maps[8].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[7]));
             MapCreators.Add(Maps[9].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[8]));
             MapCreators.Add(Maps[10].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[9]));
+
+            EM = new EnemyManager();
 
             //Dungeons
             MapCreators.Add(Dungeons[0].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[3] }, new List<BaseCharacters> { EM.enemies[0], EM.enemies[1], EM.enemies[2]}, 5));
