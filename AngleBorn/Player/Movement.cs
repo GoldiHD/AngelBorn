@@ -133,10 +133,16 @@ namespace AngleBorn.Player
                     }
                     return false;
 
+                case ConsoleKey.I:
+                    PlayManager.State = PlayerState.Inventory;
+                    CW.Clear();
+                    return true;
+
                 default:
                     return false;
             }
         }
+
 
         public bool MovementInDungeon()
         {
@@ -267,6 +273,7 @@ namespace AngleBorn.Player
                                 case 0:
                                     DrawInfoBox.AddToBox("You attacked " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
                                     SingleTon.GetPlayerController().CBM.enemyFighting.TakeDamage(SingleTon.GetPlayerController().Skills.Power.Buff + SingleTon.GetPlayerController().Skills.Power.ExtraAttack);
+                                    SingleTon.GetPlayerController().CBM.enemyFighting.SetDamage();
                                     SingleTon.GetPlayerController().Skills.Vitallity.TakeDamage(SingleTon.GetPlayerController().CBM.enemyFighting.Damage);
                                     if(SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent == 0)
                                     {
@@ -283,6 +290,8 @@ namespace AngleBorn.Player
                                             PlayManager.State = PlayerState.WorldMap;
                                         }
                                         SingleTon.GetPlayerController().AddXP(SingleTon.GetPlayerController().CBM.enemyFighting.Xp);
+                                        SingleTon.GetPlayerController().Inventory.AddGold(SingleTon.GetPlayerController().CBM.enemyFighting.GetGold());
+                                        SingleTon.GetPlayerController().CBM.enemyFighting.EndCombat();
                                         CW.Clear();
                                         MapD.DrawMap();
                                         return CombatMenuReturn.None;

@@ -2,6 +2,7 @@
 using AngelBorn.Player.Inventory;
 using AngelBorn.Player.PlayerClass;
 using AngelBorn.Player.RaceFolder;
+using AngelBorn.Tools;
 using AngleBorn.Items;
 using AngleBorn.Player;
 using System;
@@ -40,7 +41,7 @@ namespace AngelBorn.Player
 
         public void AddXP(int amount)
         {
-            if(amount > 0)
+            if (amount > 0)
             {
                 Xp += amount;
             }
@@ -62,6 +63,5 @@ namespace AngelBorn.Player
             Xp = 0;
             NextLevelXP = (int)(((float)Level * 1.25f) * 2) + 10;
         }
-
     }
 }

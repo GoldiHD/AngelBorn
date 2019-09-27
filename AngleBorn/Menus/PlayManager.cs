@@ -89,7 +89,7 @@ namespace AngleBorn.Menus
                         }
                         break;
 
-                    case PlayerState.Menu:
+                    case PlayerState.Inventory:
 
                         break;
                 }
@@ -100,6 +100,6 @@ namespace AngleBorn.Menus
 
     enum PlayerState
     {
-        WorldMap, Dungeon, Combat, Store, Menu
+        WorldMap, Dungeon, Combat, Store, Inventory
     }
 }
