@@ -136,7 +136,8 @@ namespace AngleBorn.Player
                 case ConsoleKey.I:
                     PlayManager.State = PlayerState.Inventory;
                     CW.Clear();
-                    return true;
+                    new InventoryDraw().Draw();
+                    return false;
 
                 default:
                     return false;

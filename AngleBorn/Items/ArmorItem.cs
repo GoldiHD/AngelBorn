@@ -11,14 +11,17 @@ namespace AngleBorn.Items
     {
         public ArmorLocation ArmorLocation { get; private set; }
         public int AC { get; private set; }
-        public ArmorItem(string _name, ItemType _itemType, int _value, bool _usedInCombat, int _AC, ArmorLocation _armorLocation)
+        public ArmorItem(string _name, string _description, ItemType _itemType, int _value, bool _usedInCombat, int _AC, ArmorLocation _armorLocation)
         {
             name = _name;
+            Id = SingleTon.GetItemManager().AllItems.Count;
+            describtion = _description;
             itemType = _itemType;
             Value = _value;
             UseInCombat = _usedInCombat;
             AC = _AC;
             ArmorLocation = _armorLocation;
+            Effect = "Def +" + AC;
         }
 
         public override void Equip()

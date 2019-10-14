@@ -50,7 +50,7 @@ namespace AngelBorn.Player
             {
                 _lvl = 0;
             }
-            ExtraAttack = _lvl / 3;
+            ExtraAttack = 1 + _lvl / 3;
         }
 
         public void AddWeaponDamage(int _weaponDamage)

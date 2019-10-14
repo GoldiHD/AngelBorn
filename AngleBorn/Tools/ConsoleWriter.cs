@@ -58,7 +58,7 @@ namespace AngelBorn.Tools
             {
                 return new Cord { X = Console.CursorLeft, Y = Console.CursorTop };
             }
-            
+
         }
 
         public static ConsoleKeyInfo ReadKey()
@@ -86,7 +86,7 @@ namespace AngelBorn.Tools
 
         public static void SetPos(int x, int y)
         {
-            lock(Key)
+            lock (Key)
             {
                 Console.SetCursorPosition(x, y);
             }
@@ -102,6 +102,45 @@ namespace AngelBorn.Tools
                     Thread.Sleep(delay);
                 }
             }
+        }
+
+        public static void FillOutStringSplitter(string input, int x, int y)
+        {
+            string TopBot = "═";
+            string ReturnString = "";
+            ReturnString += "╠";
+            for (int i = 0; i < input.Length - 2; i++)
+            {
+                ReturnString += TopBot;
+            }
+            ReturnString += "╣";
+            CW.Write(ReturnString, x, y);
+        }
+
+        public static void FillOutStringBorder(string input, bool Top, int x, int y)
+        {
+            string[] Cor = { "╔", "╗", "╝", "╚" };
+            string TopBot = "═";
+            string ReturnString = "";
+            if (Top)
+            {
+                ReturnString += Cor[0];
+                for (int i = 0; i < input.Length - 2; i++)
+                {
+                    ReturnString += TopBot;
+                }
+                ReturnString += Cor[1];
+            }
+            else
+            {
+                ReturnString += Cor[3];
+                for (int i = 0; i < input.Length - 2; i++)
+                {
+                    ReturnString += TopBot;
+                }
+                ReturnString += Cor[2];
+            }
+            CW.Write(ReturnString, x, y);
         }
 
         public static string Readline()

@@ -90,7 +90,7 @@ namespace AngleBorn.Menus
                         break;
 
                     case PlayerState.Inventory:
-
+                        
                         break;
                 }
 

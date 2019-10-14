@@ -7,7 +7,7 @@ namespace AngelBorn.Player.Inventory
 {
     class InventoryManager
     {
-        public List<BaseItem> Inventory = new List<BaseItem>();
+        public List<BaseItem> Inventory { get; private set; }
 
         public ArmorItem HeadArmor;
         public ArmorItem ChestArmor;
@@ -38,7 +38,9 @@ namespace AngelBorn.Player.Inventory
         public InventoryManager()
         {
             Gold = 0;
+            Inventory = new List<BaseItem>();
         }
+
 
     }
 }

@@ -12,15 +12,16 @@ namespace AngleBorn.Items
         public int Damage { get; private set; }
         public int Durability { get; private set; }
 
-        public WeaponItem(string _name, ItemType _itemType, int _value, bool _usedInCombat, int _damage, int _durability)
+        public WeaponItem(string _name, string _description,ItemType _itemType, int _value, bool _usedInCombat, int _damage)
         {
             name = _name;
+            describtion = _description;
             Id = SingleTon.GetItemManager().AllItems.Count;
             itemType = _itemType;
             Value = _value;
             UseInCombat = _usedInCombat;
             Damage = _damage;
-            Durability = _durability;
+            Effect = "AttacK +" + Damage;
         }
 
         public override void Equip()

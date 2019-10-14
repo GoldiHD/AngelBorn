@@ -11,9 +11,7 @@ namespace AngleBorn.Grapihcs
     class CombatDraw
     {
         public static int IndexMenu;
-        private readonly string[] Cor = { "╔", "╗", "╝", "╚" };
         private readonly string Side = "║";
-        private readonly string TopBot = "═";
         private int LineHeightPos;
         public static ActionMenus MenuState = ActionMenus.Main;
         private static Cord ActionMenuStart;
@@ -29,20 +27,20 @@ namespace AngleBorn.Grapihcs
             Pos = _Pos;
             LineHeightPos = 0;
             string BigLine = Side + " Round: " + SingleTon.GetPlayerController().CBM.Rounds + " " + Side;
-            CW.Write(FilloutString(BigLine, true), Pos.X, Pos.Y + LineHeightPos);
+            CW.FillOutStringBorder(BigLine, true, Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos++;
             CW.Write(BigLine, Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos++;
-            CW.Write(FilloutString(BigLine, false), Pos.X, Pos.Y + LineHeightPos);
+            CW.FillOutStringBorder(BigLine, false, Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos++;
             BigLine = Side + " Name: " + SingleTon.GetPlayerController().PlayerName + " " + Side;
             CW.Write("", Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos++;
-            CW.Write(FilloutString(BigLine, true), Pos.X, Pos.Y + LineHeightPos);
+            CW.FillOutStringBorder(BigLine, true, Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos++;
             CW.Write(BigLine, Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos++;
-            CW.Write(FilloutString(BigLine, false), Pos.X, Pos.Y + LineHeightPos);
+            CW.FillOutStringBorder(BigLine, false, Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos += 2;
             StatsPosStart = new Cord { X = Pos.X, Y = Pos.Y + LineHeightPos };
             ReDrawStats();
@@ -57,11 +55,11 @@ namespace AngleBorn.Grapihcs
             BigLine = Side + " Name: " + SingleTon.GetPlayerController().CBM.enemyFighting.Name + " " + Side;
             Pos = new Cord() { X = Console.WindowWidth - (BigLine.Length + 1), Y = Pos.Y + 4 };
             LineHeightPos = 0;
-            CW.Write(FilloutString(BigLine, true), Pos.X, Pos.Y + LineHeightPos);
+            CW.FillOutStringBorder(BigLine, true, Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos++;
             CW.Write(BigLine, Pos.X, Pos.Y + LineHeightPos);
             LineHeightPos++;
-            CW.Write(FilloutString(BigLine, false), Pos.X, Pos.Y + LineHeightPos);
+            CW.FillOutStringBorder(BigLine, false, Pos.X, Pos.Y + LineHeightPos);
         }
 
         public void ReDrawStats()
@@ -81,7 +79,7 @@ namespace AngleBorn.Grapihcs
                 }
             }
 
-            CW.Write(FilloutString(BigestText, true), StatsPosStart.X, StatsPosStart.Y + LineHeightPos);
+            CW.FillOutStringBorder(BigestText, true, StatsPosStart.X, StatsPosStart.Y + LineHeightPos);
             LineHeightPos++;
             foreach (string element in StatTexts)
             {
@@ -90,7 +88,7 @@ namespace AngleBorn.Grapihcs
                 CW.Write(Side, StatsPosStart.X + (BigestText.Length - 1), StatsPosStart.Y + LineHeightPos);
                 LineHeightPos++;
             }
-            CW.Write(FilloutString(BigestText, false), StatsPosStart.X, StatsPosStart.Y + LineHeightPos);
+            CW.FillOutStringBorder(BigestText, false, StatsPosStart.X, StatsPosStart.Y + LineHeightPos);
 
             //enemy
 
@@ -109,7 +107,7 @@ namespace AngleBorn.Grapihcs
                 }
             }
             int Lenght = StatsPosStart.X + (Console.WindowWidth - (StatsPosStart.X + 1 + BigestText.Length));
-            CW.Write(FilloutString(BigestText, true),Lenght, StatsPosStart.Y + LineHeightPos);
+            CW.FillOutStringBorder(BigestText, true,Lenght, StatsPosStart.Y + LineHeightPos);
             LineHeightPos++;
             foreach (string element in StatTexts)
             {
@@ -118,7 +116,7 @@ namespace AngleBorn.Grapihcs
                 CW.Write(Side, Lenght + (BigestText.Length - 1), StatsPosStart.Y + LineHeightPos);
                 LineHeightPos++;
             }
-            CW.Write(FilloutString(BigestText, false), Lenght, StatsPosStart.Y + LineHeightPos);
+            CW.FillOutStringBorder(BigestText, false, Lenght, StatsPosStart.Y + LineHeightPos);
 
           }
 
@@ -139,7 +137,7 @@ namespace AngleBorn.Grapihcs
 
                 case ActionMenus.Main:
                     ActiveMenuList = MenuTextOptions;
-                    CW.Write(FilloutString(Filler, true), ActionMenuStart.X, ActionMenuStart.Y + LineHeightPos);
+                    CW.FillOutStringBorder(Filler, true, ActionMenuStart.X, ActionMenuStart.Y + LineHeightPos);
                     LineHeightPos++;
                     int CurrentHeight = LineHeightPos;
                     for (int i = 0; i < MenuTextOptions.Count; i++)
@@ -163,7 +161,7 @@ namespace AngleBorn.Grapihcs
                         CW.Write(Side, ActionMenuStart.X + 28, ActionMenuStart.Y + CurrentHeight);
                         CurrentHeight++;
                     }
-                    CW.Write(FilloutString(Filler, false), ActionMenuStart.X, ActionMenuStart.Y + 11);
+                    CW.FillOutStringBorder(Filler, false, ActionMenuStart.X, ActionMenuStart.Y + 11);
                     break;
             }
         }
@@ -178,7 +176,7 @@ namespace AngleBorn.Grapihcs
             {
                 FillText += "o";
             }
-            CW.Write(FilloutString(FillText, true), LogPosStart.X, LogPosStart.Y + LineHeightPos);
+            CW.FillOutStringBorder(FillText, true, LogPosStart.X, LogPosStart.Y + LineHeightPos);
             LineHeightPos++;
             int TimesToWrite;
             if (DrawInfoBox.Inputs.Count < 10)
@@ -196,36 +194,8 @@ namespace AngleBorn.Grapihcs
                 CW.Write(Side, LogPosStart.X + (Console.WindowWidth - (LogPosStart.X + 1)), LogPosStart.Y + LineHeightPos);
                 LineHeightPos++;
             }
-            CW.Write(FilloutString(FillText, false), LogPosStart.X, LogPosStart.Y + LineHeightPos);
+            CW.FillOutStringBorder(FillText, false, LogPosStart.X, LogPosStart.Y + LineHeightPos);
         }
-
-
-        private string FilloutString(string InputString, bool Top)
-        {
-            string ReturnString = "";
-            if (Top)
-            {
-                ReturnString += Cor[0];
-                for (int x = 0; x < InputString.Length - 2; x++)
-                {
-                    ReturnString += TopBot;
-                }
-                ReturnString += Cor[1];
-                return ReturnString;
-            }
-            else
-            {
-                ReturnString += Cor[3];
-                for (int x = 0; x < InputString.Length - 2; x++)
-                {
-                    ReturnString += TopBot;
-                }
-                ReturnString += Cor[2];
-                return ReturnString;
-            }
-        }
-
-
         public enum ActionMenus
         {
             Main, Items, Ablilites

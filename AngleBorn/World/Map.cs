@@ -275,7 +275,6 @@ namespace AngelBorn.World
                 Location = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
                 if (Tiles[Location.X, Location.Y].MyType == TileType.Normal)
                 {
-
                     SingleTon.GetCursorInstance().CurrentTile = Tiles[Location.X, Location.Y];
                     return;
                 }
@@ -307,7 +306,6 @@ namespace AngelBorn.World
             while (true)
             {
                 NewCord = SetRooms[SingleTon.GetRandomNum(0, SetRooms.Count)].Pos;
-                //NewCord = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
                 if (Tiles[NewCord.X, NewCord.Y].MyType == TileType.Normal)
                 {
                     return NewCord;

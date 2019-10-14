@@ -19,11 +19,11 @@ namespace AngleBorn.Items
             //Items
 
             //Weapons
-            AllItems.Add(new WeaponItem("Wooden Stick", ItemType.Weapons, 2, true, 2, 100));
+            AllItems.Add(new WeaponItem("Wooden Stick","A simple stick not worth much but might be enough", ItemType.Weapons, 2, true, 2));
             //Armor
-            AllItems.Add(new ArmorItem("Leather Breastplate", ItemType.Armor, 20, false, 2, ArmorLocation.Chest));
-            AllItems.Add(new ArmorItem("Leather Leggings", ItemType.Armor, 15, false, 2, ArmorLocation.Legs));
-            AllItems.Add(new ArmorItem("Wooden Buckler Shield", ItemType.Shield, 15, false, 1, ArmorLocation.Offhand));
+            AllItems.Add(new ArmorItem("Leather Breastplate","A solid peice harden leather covering you chest", ItemType.Armor, 20, false, 2, ArmorLocation.Chest));
+            AllItems.Add(new ArmorItem("Leather Leggings","", ItemType.Armor, 15, false, 2, ArmorLocation.Legs));
+            AllItems.Add(new ArmorItem("Wooden Buckler Shield","A simple buckler", ItemType.Shield, 15, false, 1, ArmorLocation.Offhand));
             //Consumable
 
             //Trash
