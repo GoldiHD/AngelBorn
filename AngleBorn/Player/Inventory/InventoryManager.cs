@@ -16,6 +16,15 @@ namespace AngelBorn.Player.Inventory
         public WeaponItem MainHand;
         public ArmorItem OffHand;
 
+        public bool CheckIfItemsIsEquipped(EquippableItem item)
+        {
+            for()
+            {
+
+            }
+            return false;
+        }
+
         public int Gold { get; private set; }
         public void AddGold(int amount)
         {

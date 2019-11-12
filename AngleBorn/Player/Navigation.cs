@@ -5,17 +5,14 @@ using AngelBorn.Tools;
 using AngelBorn.World;
 using AngelBorn.World.Tiles;
 using AngleBorn.Grapihcs;
+using AngleBorn.Items;
 using AngleBorn.Menus;
 using AngleBorn.World.Tiles;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AngleBorn.Player
 {
-    class Movement
+    class Navigation
     {
         private ConsoleKeyInfo Input;
         private MapDraw MapD = new MapDraw();
@@ -144,7 +141,6 @@ namespace AngleBorn.Player
             }
         }
 
-
         public bool MovementInDungeon()
         {
             Input = CW.ReadKey();
@@ -239,6 +235,58 @@ namespace AngleBorn.Player
             }
         }
 
+        public InventoryMenuReturn InventoryNavigation()
+        {
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.UpArrow:
+
+                    if (InventoryDraw.InventoryIndex <= 1)
+                    {
+                        InventoryDraw.InventoryIndex = SingleTon.GetPlayerController().Inventory.Inventory.Count - 1;
+                    }
+                    else
+                    {
+                        InventoryDraw.InventoryIndex--;
+                    }
+                    break;
+
+                case ConsoleKey.DownArrow:
+                    if (SingleTon.GetPlayerController().Inventory.Inventory.Count <= InventoryDraw.InventoryIndex)
+                    {
+                        InventoryDraw.InventoryIndex = 1;
+                    }
+                    else
+                    {
+                        InventoryDraw.InventoryIndex++;
+                    }
+                    break;
+
+                case ConsoleKey.LeftArrow://minus
+
+                    break;
+
+                case ConsoleKey.RightArrow://plus
+
+                    break;
+
+                case ConsoleKey.Enter:
+
+                    if(SingleTon.GetPlayerController().Inventory.Inventory[InventoryDraw.InventoryIndex] is EquippableItem item)
+                    {
+                        item.Equip();
+                    }
+                    break;
+
+                case ConsoleKey.Escape:
+                    PlayManager.State = PlayManager.PreviousState;
+                    return InventoryMenuReturn.None;
+                    break;
+                     
+            }
+            return InventoryMenuReturn.None;
+        }
+
         public CombatMenuReturn CombatMenuNavigation()
         {
             switch (CW.ReadKey().Key)
@@ -276,11 +324,11 @@ namespace AngleBorn.Player
                                     SingleTon.GetPlayerController().CBM.enemyFighting.TakeDamage(SingleTon.GetPlayerController().Skills.Power.Buff + SingleTon.GetPlayerController().Skills.Power.ExtraAttack);
                                     SingleTon.GetPlayerController().CBM.enemyFighting.SetDamage();
                                     SingleTon.GetPlayerController().Skills.Vitallity.TakeDamage(SingleTon.GetPlayerController().CBM.enemyFighting.Damage);
-                                    if(SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent == 0)
+                                    if (SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent == 0)
                                     {
-                                       
+
                                     }
-                                    else if(SingleTon.GetPlayerController().CBM.enemyFighting.Health == 0)
+                                    else if (SingleTon.GetPlayerController().CBM.enemyFighting.Health == 0)
                                     {
                                         if (SingleTon.GetCursorInstance().CurrentTile.MyType == TileType.Dungeon)
                                         {
@@ -316,7 +364,7 @@ namespace AngleBorn.Player
                                         {
                                             PlayManager.State = PlayerState.Dungeon;
                                         }
-                                        else if(SingleTon.GetCursorInstance().CurrentTile.MyType == TileType.Normal)
+                                        else if (SingleTon.GetCursorInstance().CurrentTile.MyType == TileType.Normal)
                                         {
                                             PlayManager.State = PlayerState.WorldMap;
                                         }
@@ -345,5 +393,10 @@ namespace AngleBorn.Player
     public enum CombatMenuReturn
     {
         None, All, Log, LogAndStatBlock, StatAndMenu, Menu, LogStatMenu
+    }
+
+    public enum InventoryMenuReturn
+    {
+        None, Gold, TabsAndDrawInventoryContainer, DrawInventoryContainer, Everything
     }
 }

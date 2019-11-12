@@ -25,7 +25,7 @@ namespace AngleBorn.Items
             AllItems.Add(new ArmorItem("Leather Leggings","", ItemType.Armor, 15, false, 2, ArmorLocation.Legs));
             AllItems.Add(new ArmorItem("Wooden Buckler Shield","A simple buckler", ItemType.Shield, 15, false, 1, ArmorLocation.Offhand));
             //Consumable
-
+            
             //Trash
         }
     }

@@ -11,7 +11,7 @@ namespace AngleBorn.Grapihcs
 {
     class InventoryDraw
     {
-        public static int TabIndex;
+        public static int TabIndex = 0;
         public static int InventoryIndex = 1;
         private InventoryDrawMenuState state;
         private Cord GoldHeight;

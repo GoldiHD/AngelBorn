@@ -21,7 +21,7 @@ namespace AngleBorn.Items
             Value = _value;
             UseInCombat = _usedInCombat;
             Damage = _damage;
-            Effect = "AttacK +" + Damage;
+            Effect = "Attack +" + Damage;
         }
 
         public override void Equip()

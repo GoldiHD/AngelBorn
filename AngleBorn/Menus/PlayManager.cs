@@ -16,13 +16,26 @@ namespace AngleBorn.Menus
     class PlayManager
     {
         public InventoryManager inventory { get; private set; }
-        public static PlayerState State;
+        private static PlayerState CurrentState;
+        public static PlayerState State { 
+            set 
+            {
+                PreviousState = CurrentState;
+                CurrentState = value;
+            }
+            get
+            {
+                return CurrentState;
+            }
+        }
         private MapDraw ViewMap = new MapDraw();
         private DrawStats ViewStats = new DrawStats();
-        private Movement movement = new Movement();
+        private Navigation movement = new Navigation();
         private DrawInfoBox DIB = new DrawInfoBox();
         private CombatDraw CD = new CombatDraw();
+        private InventoryDraw ID = new InventoryDraw();
         private int infoBoardSize = 0;
+        public static PlayerState PreviousState;
 
         public void Run()
         {
@@ -76,8 +89,8 @@ namespace AngleBorn.Menus
 
                             case CombatMenuReturn.Log:
                                 CD.ReDrawLog();
-                                break; 
-                                
+                                break;
+
                             case CombatMenuReturn.StatAndMenu:
                                 CD.RedrawAcionMenu();
                                 CD.ReDrawStats();
@@ -90,7 +103,28 @@ namespace AngleBorn.Menus
                         break;
 
                     case PlayerState.Inventory:
-                        
+                        switch(movement.InventoryNavigation())
+                        {
+                            case InventoryMenuReturn.DrawInventoryContainer:
+                                //inven
+                                break;
+
+                            case InventoryMenuReturn.Everything:
+
+                                break;
+
+                            case InventoryMenuReturn.Gold:
+
+                                break;
+
+                            case InventoryMenuReturn.None:
+
+                                break;
+
+                            case InventoryMenuReturn.TabsAndDrawInventoryContainer:
+
+                                break;
+                        }
                         break;
                 }
 
