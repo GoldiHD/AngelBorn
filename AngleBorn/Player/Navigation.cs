@@ -249,7 +249,7 @@ namespace AngleBorn.Player
                     {
                         InventoryDraw.InventoryIndex--;
                     }
-                    break;
+                    return InventoryMenuReturn.DrawInventoryContainer;
 
                 case ConsoleKey.DownArrow:
                     if (SingleTon.GetPlayerController().Inventory.Inventory.Count <= InventoryDraw.InventoryIndex)
@@ -260,29 +260,32 @@ namespace AngleBorn.Player
                     {
                         InventoryDraw.InventoryIndex++;
                     }
-                    break;
+                    return InventoryMenuReturn.DrawInventoryContainer;
 
                 case ConsoleKey.LeftArrow://minus
 
-                    break;
+                    return InventoryMenuReturn.TabsAndDrawInventoryContainer;
 
                 case ConsoleKey.RightArrow://plus
 
-                    break;
+                    return InventoryMenuReturn.TabsAndDrawInventoryContainer;
 
                 case ConsoleKey.Enter:
 
-                    if(SingleTon.GetPlayerController().Inventory.Inventory[InventoryDraw.InventoryIndex] is EquippableItem item)
+                    if(SingleTon.GetPlayerController().Inventory.Inventory[InventoryDraw.InventoryIndex - 1] is EquippableItem item)
                     {
+                        if (SingleTon.GetPlayerController().Inventory.CheckIfItemsIsEquipped(item))
+                        {
+                            item.UnEquip();
+                        }
                         item.Equip();
+                        return InventoryMenuReturn.DrawInventoryContainer;
                     }
                     break;
 
                 case ConsoleKey.Escape:
                     PlayManager.State = PlayManager.PreviousState;
                     return InventoryMenuReturn.None;
-                    break;
-                     
             }
             return InventoryMenuReturn.None;
         }

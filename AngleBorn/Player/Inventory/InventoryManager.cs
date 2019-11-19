@@ -1,4 +1,5 @@
-﻿using AngleBorn.Items;
+﻿using AngelBorn.Tools;
+using AngleBorn.Items;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,12 +16,22 @@ namespace AngelBorn.Player.Inventory
         public ArmorItem ShoesArmor;
         public WeaponItem MainHand;
         public ArmorItem OffHand;
-
-        public bool CheckIfItemsIsEquipped(EquippableItem item)
+        private List<EquippableItem> GetAllEquipped
         {
-            for()
+            get
             {
+                return new List<EquippableItem>() { HeadArmor, ChestArmor, PantsArmor, ShoesArmor, MainHand, OffHand };
+            }
+        }
 
+    public bool CheckIfItemsIsEquipped(EquippableItem item)
+        {
+            foreach(EquippableItem element in GetAllEquipped)
+            {
+                if(element == item)
+                {
+                    return true;
+                }
             }
             return false;
         }
