@@ -11,16 +11,19 @@ namespace AngleBorn.Grapihcs
 {
     class InventoryDraw
     {
-        public static int TabIndex = 0;
         public static int InventoryIndex = 1;
-        private InventoryDrawMenuState state;
-        private Cord GoldHeight;
-        private Cord TabHeight;
-        private Cord InventoryContainerHeight;
+        /// <summary>
+        /// what tab the menu is in
+        /// </summary>
+        public static InventoryDrawMenuState state = InventoryDrawMenuState.All;
+        private static Cord GoldHeight;
+        private static Cord TabHeight;
+        private static Cord InventoryContainerHeight;
         private int lineheight = 0;
 
         public void Draw()
         {
+            Console.Clear();
             GoldHeight = new Cord { X = 2, Y = 2 };
             DrawGold();
             TabHeight = new Cord { X = GoldHeight.X, Y = GoldHeight.Y + 4 };
@@ -29,7 +32,7 @@ namespace AngleBorn.Grapihcs
             DrawInventoryContainer();
         }
 
-        private void DrawGold()
+        public void DrawGold()
         {
             lineheight = 0;
             string GoldText = "║ Gold: " + SingleTon.GetPlayerController().Inventory.Gold + " ║";
@@ -46,7 +49,7 @@ namespace AngleBorn.Grapihcs
             string tabString = "║";
             for (int i = 0; i < Tabs.Length; i++)
             {
-                if (TabIndex == i)
+                if ((int)state == i)
                 {
                     tabString += " [" + Tabs[i] + "] ║";
                 }
@@ -62,6 +65,7 @@ namespace AngleBorn.Grapihcs
             CW.FillOutStringBorder(tabString, false, TabHeight.X, TabHeight.Y + lineheight);
         }
 
+
         public void DrawInventoryContainer()
         {
             lineheight = 0;
@@ -72,7 +76,7 @@ namespace AngleBorn.Grapihcs
                 case InventoryDrawMenuState.All:
                     foreach (BaseItem element in SingleTon.GetPlayerController().Inventory.Inventory)
                     {
-                        if(element is EquippableItem item)
+                        if (element is EquippableItem item)
                         {
                             ItemLine.Add(SizeAble(element.name, element.describtion, element.Effect, element.Value.ToString(), element.itemType.ToString(), ItemLine.Count, SingleTon.GetPlayerController().Inventory.CheckIfItemsIsEquipped(item)));
                         }
@@ -80,12 +84,30 @@ namespace AngleBorn.Grapihcs
                         {
                             ItemLine.Add(SizeAble(element.name, element.describtion, element.Effect, element.Value.ToString(), element.itemType.ToString(), ItemLine.Count));
                         }
-                        
+
                     }
                     break;
 
                 case InventoryDrawMenuState.Armor:
+                    foreach (BaseItem element in (SingleTon.GetPlayerController().Inventory.Inventory.Where(x => x is ArmorItem).ToList()))
+                    {
+                        ItemLine.Add(SizeAble(element.name, element.describtion, element.Effect, element.Value.ToString(), element.itemType.ToString(), ItemLine.Count, SingleTon.GetPlayerController().Inventory.CheckIfItemsIsEquipped((EquippableItem)element)));
+                    }
+                    break;
 
+                case InventoryDrawMenuState.Weapon:
+                    foreach (BaseItem element in (SingleTon.GetPlayerController().Inventory.Inventory.Where(x => x is WeaponItem).ToList()))
+                    {
+                        ItemLine.Add(SizeAble(element.name, element.describtion, element.Effect, element.Value.ToString(), element.itemType.ToString(), ItemLine.Count, SingleTon.GetPlayerController().Inventory.CheckIfItemsIsEquipped((EquippableItem)element)));
+                    }
+                    break;
+
+                case InventoryDrawMenuState.Consumeable:
+                    throw new NotImplementedException();
+                    break;
+
+                case InventoryDrawMenuState.Misc:
+                    throw new NotImplementedException();
                     break;
             }
             CW.FillOutStringBorder(ItemLine[0], true, InventoryContainerHeight.X, InventoryContainerHeight.Y + lineheight);
@@ -129,12 +151,12 @@ namespace AngleBorn.Grapihcs
             {
                 NewString += "║  " + AddSpaces("[X]", equippedDistance) + "  ║";
             }
-            else 
+            else
             {
                 NewString += "║  " + AddSpaces("[ ]", equippedDistance) + "  ║";
             }
 
-                return NewString;
+            return NewString;
         }
 
         private string AddSpaces(string text, int amount)

@@ -243,7 +243,7 @@ namespace AngleBorn.Player
 
                     if (InventoryDraw.InventoryIndex <= 1)
                     {
-                        InventoryDraw.InventoryIndex = SingleTon.GetPlayerController().Inventory.Inventory.Count - 1;
+                        InventoryDraw.InventoryIndex = SingleTon.GetPlayerController().Inventory.Inventory.Count;
                     }
                     else
                     {
@@ -252,7 +252,7 @@ namespace AngleBorn.Player
                     return InventoryMenuReturn.DrawInventoryContainer;
 
                 case ConsoleKey.DownArrow:
-                    if (SingleTon.GetPlayerController().Inventory.Inventory.Count <= InventoryDraw.InventoryIndex)
+                    if (SingleTon.GetPlayerController().Inventory.Inventory.Count == InventoryDraw.InventoryIndex)
                     {
                         InventoryDraw.InventoryIndex = 1;
                     }
@@ -263,12 +263,26 @@ namespace AngleBorn.Player
                     return InventoryMenuReturn.DrawInventoryContainer;
 
                 case ConsoleKey.LeftArrow://minus
-
-                    return InventoryMenuReturn.TabsAndDrawInventoryContainer;
+                    if(InventoryDraw.state == InventoryDrawMenuState.All)
+                    {
+                        InventoryDraw.state = InventoryDrawMenuState.Misc;
+                    }
+                    else
+                    {
+                        InventoryDraw.state--;
+                    }
+                    return InventoryMenuReturn.Everything;
 
                 case ConsoleKey.RightArrow://plus
-
-                    return InventoryMenuReturn.TabsAndDrawInventoryContainer;
+                    if(InventoryDraw.state == InventoryDrawMenuState.Misc)
+                    {
+                        InventoryDraw.state = InventoryDrawMenuState.All;
+                    }
+                    else
+                    {
+                        InventoryDraw.state++;
+                    }
+                    return InventoryMenuReturn.Everything;
 
                 case ConsoleKey.Enter:
 
@@ -278,12 +292,17 @@ namespace AngleBorn.Player
                         {
                             item.UnEquip();
                         }
-                        item.Equip();
-                        return InventoryMenuReturn.DrawInventoryContainer;
+                        else
+                        {
+                            item.Equip();
+                        }
+                        return InventoryMenuReturn.Everything;
                     }
                     break;
 
                 case ConsoleKey.Escape:
+                    Console.Clear();
+                    new MapDraw().DrawMap();
                     PlayManager.State = PlayManager.PreviousState;
                     return InventoryMenuReturn.None;
             }
@@ -312,11 +331,11 @@ namespace AngleBorn.Player
                     switch (CombatDraw.MenuState)
                     {
                         case CombatDraw.ActionMenus.Ablilites:
-
+                            throw new NotImplementedException();
                             break;
 
                         case CombatDraw.ActionMenus.Items:
-
+                            throw new NotImplementedException();
                             break;
 
                         case CombatDraw.ActionMenus.Main:
@@ -385,9 +404,6 @@ namespace AngleBorn.Player
                     }
                     return CombatMenuReturn.All;
 
-                case ConsoleKey.H:
-                    SingleTon.GetPlayerController().Skills.Vitallity.Heal(1000);
-                    return CombatMenuReturn.None;
                 default:
                     return CombatMenuReturn.None;
             }

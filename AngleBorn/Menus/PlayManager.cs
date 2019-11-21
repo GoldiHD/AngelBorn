@@ -106,23 +106,24 @@ namespace AngleBorn.Menus
                         switch(movement.InventoryNavigation())
                         {
                             case InventoryMenuReturn.DrawInventoryContainer:
-                                //inven
+                                ID.DrawInventoryContainer();
                                 break;
 
                             case InventoryMenuReturn.Everything:
-
+                                ID.Draw();
                                 break;
 
                             case InventoryMenuReturn.Gold:
-
+                                ID.DrawGold();
                                 break;
 
                             case InventoryMenuReturn.None:
-
+                                //why did I make this?
                                 break;
 
                             case InventoryMenuReturn.TabsAndDrawInventoryContainer:
-
+                                ID.DrawInventoryContainer();
+                                ID.DrawTabs();
                                 break;
                         }
                         break;
