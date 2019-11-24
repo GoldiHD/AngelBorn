@@ -54,19 +54,22 @@ namespace AngelBorn.World.Enemies
             return SingleTon.GetRandomNum(GoldMin, GoldMax+1);
         }
 
-        public void TakeDamage(int inputDamage)
+        public int TakeDamage(int inputDamage)
         {
             if(inputDamage >= 0)
             {
                 if(Health - inputDamage >= 0)
                 {
                     Health -= inputDamage;
+                    return inputDamage;
                 }
                 else
                 {
                     Health = 0;
+                    return inputDamage - (inputDamage- Health);
                 }
             }
+            return 0;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace AngleBorn.Grapihcs
         private static Cord StatsPosStart;
         private Cord Pos;
         public static List<string> ActiveMenuList;
-        private readonly List<string> MenuTextOptions = new List<string> { "Attack", "Items", "Magic", "Flee" };
+        private readonly List<string> MenuTextOptions = new List<string> { "Attack", "Items", "Abilites", "Flee" };
 
         public void Draw(Cord _Pos)
         {

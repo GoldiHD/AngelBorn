@@ -342,10 +342,8 @@ namespace AngleBorn.Player
                             switch (CombatDraw.IndexMenu)
                             {
                                 case 0:
-                                    DrawInfoBox.AddToBox("You attacked " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
-                                    SingleTon.GetPlayerController().CBM.enemyFighting.TakeDamage(SingleTon.GetPlayerController().Skills.Power.Buff + SingleTon.GetPlayerController().Skills.Power.ExtraAttack);
                                     SingleTon.GetPlayerController().CBM.enemyFighting.SetDamage();
-                                    SingleTon.GetPlayerController().Skills.Vitallity.TakeDamage(SingleTon.GetPlayerController().CBM.enemyFighting.Damage);
+                                    DrawInfoBox.AddToBox("You attacked " + SingleTon.GetPlayerController().CBM.enemyFighting.Name + " and dealt " + SingleTon.GetPlayerController().Skills.Vitallity.TakeDamage(SingleTon.GetPlayerController().CBM.enemyFighting.Damage) + ", "+ SingleTon.GetPlayerController().CBM.enemyFighting.Name + " hits back and damages you " + SingleTon.GetPlayerController().CBM.enemyFighting.TakeDamage(SingleTon.GetPlayerController().Skills.Power.Buff + SingleTon.GetPlayerController().Skills.Power.ExtraAttack));
                                     if (SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent == 0)
                                     {
 

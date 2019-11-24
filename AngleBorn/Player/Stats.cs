@@ -124,19 +124,22 @@ namespace AngelBorn.Player
             }
         }
 
-        public void TakeDamage(int damage)
+        public int TakeDamage(int damage)
         {
             if (damage >= 0)
             {
                 if (HealthCurrent - damage >= 0)
                 {
                     HealthCurrent -= damage;
+                    return damage;
                 }
                 else
                 {
                     HealthCurrent = 0;
+                    return damage - (damage - HealthCurrent);
                 }
             }
+            return 0;
         }
     }
 
