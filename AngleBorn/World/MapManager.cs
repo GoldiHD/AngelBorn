@@ -54,11 +54,13 @@ namespace AngelBorn.World
         private void CreateTiles()
         {
             //create tiles and towns
-            Tiles.Add(new BaseTile() { TileName = "Moutain", Walkable = false, MyType = TileType.Inpassable, MinChanceMonster = 0f, MaxChanceMonster = 0f });
-            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "GrassPlain", Description = "An open field of grass, you're not likely to meet anyone here", Walkable = true, MinChanceMonster = 0.01f, MaxChanceMonster = 0.05f});
-            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Forest", Description = "Are normal forest you're likely to find things here", Walkable = true, MinChanceMonster = 0.05f, MaxChanceMonster = 0.2f });
-            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Dungeon Floor", Description = "a dusty floor in the in a wet and cold dungeon", Walkable = true, MinChanceMonster =  0.2f, MaxChanceMonster = 0.25f});
-            Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Swamp", Description = "A swampy area submerged in water and ", Walkable = true, MinChanceMonster = 0.15f, MaxChanceMonster = 0.23f });
+            /*0*/Tiles.Add(new BaseTile() { TileName = "Moutain", Walkable = false, MyType = TileType.Inpassable, MinChanceMonster = 0f, MaxChanceMonster = 0f });
+            /*1*/Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "GrassPlain", Description = "An open field of grass, you're not likely to meet anyone here", Walkable = true, MinChanceMonster = 0.01f, MaxChanceMonster = 0.02f});
+            /*2*/Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Forest", Description = "Are normal forest you're likely to find things here", Walkable = true, MinChanceMonster = 0.005f, MaxChanceMonster = 0.02f });
+            /*3*/Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Dungeon Floor", Description = "a dusty floor in the in a wet and cold dungeon", Walkable = true, MinChanceMonster =  0.02f, MaxChanceMonster = 0.025f});
+            /*4*/Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Swamp", Description = "A swampy area submerged in water and ", Walkable = true, MinChanceMonster = 0.015f, MaxChanceMonster = 0.023f });
+            /*5*/Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Road", Description = "A lonely road between cites, you may spot the random farmer on his way", MinChanceMonster = 0.002f, MaxChanceMonster = 0.0021f });
+            /*6*/Tiles.Add(new BaseTile() { MyType = TileType.Normal, TileName = "Healing Fountain", Description = "A magical healing fountain, one of these can be found in every town", MinChanceMonster = 0, MaxChanceMonster = 0f });
         }
 
         private void CreateNPCS()
@@ -107,17 +109,18 @@ namespace AngelBorn.World
             Towns.Add(new CityTile("Taxned", Maps[0], Maps[9]));
             Towns.Add(new CityTile("Kunzud", Maps[0], Maps[10]));
 
-            MapCreators.Add(Maps[0].GenerateMapThread(new List<BaseTile> { Tiles[1], Tiles[2], Tiles[4] }, new List<CityTile> { Towns[0],  Towns[1], Towns[2], Towns[3], Towns[4]}, new List<BaseCharacters>(), 20));
-            MapCreators.Add(Maps[1].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0]}, 15, Towns[0]));
-            MapCreators.Add(Maps[2].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0]},20, Towns[1]));
-            MapCreators.Add(Maps[3].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0]},10, Towns[2]));
-            MapCreators.Add(Maps[4].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0]},30, Towns[3]));
-            MapCreators.Add(Maps[5].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0]},4, Towns[4]));
-            MapCreators.Add(Maps[6].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[5]));
-            MapCreators.Add(Maps[7].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[6]));
-            MapCreators.Add(Maps[8].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[7]));
-            MapCreators.Add(Maps[9].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[8]));
-            MapCreators.Add(Maps[10].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[9]));
+            MapCreators.Add(Maps[0].GenerateMapThread(new List<BaseTile> { Tiles[1], Tiles[2], Tiles[4], Tiles[5] }, new List<CityTile> { Towns[0],  Towns[1], Towns[2], Towns[3], Towns[4]}, new List<BaseCharacters>(), 20));
+            //Cites
+            MapCreators.Add(Maps[1].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1], Tiles[6] }, new List<BaseCharacters> { NPCS[0]}, 15, Towns[0]));
+            MapCreators.Add(Maps[2].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1], Tiles[6] }, new List<BaseCharacters> { NPCS[0]},20, Towns[1]));
+            MapCreators.Add(Maps[3].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1], Tiles[6] }, new List<BaseCharacters> { NPCS[0]},10, Towns[2]));
+            MapCreators.Add(Maps[4].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1], Tiles[6] }, new List<BaseCharacters> { NPCS[0]},30, Towns[3]));
+            MapCreators.Add(Maps[5].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1], Tiles[6] }, new List<BaseCharacters> { NPCS[0]},4, Towns[4]));
+            MapCreators.Add(Maps[6].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1], Tiles[6] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[5]));
+            MapCreators.Add(Maps[7].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1], Tiles[6] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[6]));
+            MapCreators.Add(Maps[8].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1], Tiles[6] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[7]));
+            MapCreators.Add(Maps[9].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1], Tiles[6] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[8]));
+            MapCreators.Add(Maps[10].GenerateMapThread(new List<BaseTile> { Tiles[0], Tiles[1], Tiles[6] }, new List<BaseCharacters> { NPCS[0] }, 4, Towns[9]));
 
             EM = new EnemyManager();
 

@@ -28,7 +28,8 @@ namespace AngelBorn.Tools
         private void StartingEquipment()
         {
             SingleTon.GetPlayerController().Inventory.Inventory.Add(SingleTon.GetItemManager().AllItems.Find(x => x.name == "Wooden Stick"));
-            if(SingleTon.GetPlayerController().Inventory.Inventory[0] is WeaponItem weaponItem)
+            SingleTon.GetPlayerController().Inventory.Inventory.Add(SingleTon.GetItemManager().AllItems.Find(x => x.name == "Wool Shirt"));
+            if (SingleTon.GetPlayerController().Inventory.Inventory[0] is WeaponItem weaponItem)
             {
                 weaponItem.Equip();
             }

@@ -243,16 +243,16 @@ namespace AngleBorn.Player
 
                     if (InventoryDraw.InventoryIndex <= 1)
                     {
-                        InventoryDraw.InventoryIndex = SingleTon.GetPlayerController().Inventory.Inventory.Count - 1;
+                        InventoryDraw.InventoryIndex = SingleTon.GetPlayerController().Inventory.Inventory.Count;
                     }
                     else
                     {
                         InventoryDraw.InventoryIndex--;
                     }
-                    break;
+                    return InventoryMenuReturn.DrawInventoryContainer;
 
                 case ConsoleKey.DownArrow:
-                    if (SingleTon.GetPlayerController().Inventory.Inventory.Count <= InventoryDraw.InventoryIndex)
+                    if (SingleTon.GetPlayerController().Inventory.Inventory.Count == InventoryDraw.InventoryIndex)
                     {
                         InventoryDraw.InventoryIndex = 1;
                     }
@@ -260,29 +260,51 @@ namespace AngleBorn.Player
                     {
                         InventoryDraw.InventoryIndex++;
                     }
-                    break;
+                    return InventoryMenuReturn.DrawInventoryContainer;
 
                 case ConsoleKey.LeftArrow://minus
-
-                    break;
+                    if(InventoryDraw.state == InventoryDrawMenuState.All)
+                    {
+                        InventoryDraw.state = InventoryDrawMenuState.Misc;
+                    }
+                    else
+                    {
+                        InventoryDraw.state--;
+                    }
+                    return InventoryMenuReturn.Everything;
 
                 case ConsoleKey.RightArrow://plus
-
-                    break;
+                    if(InventoryDraw.state == InventoryDrawMenuState.Misc)
+                    {
+                        InventoryDraw.state = InventoryDrawMenuState.All;
+                    }
+                    else
+                    {
+                        InventoryDraw.state++;
+                    }
+                    return InventoryMenuReturn.Everything;
 
                 case ConsoleKey.Enter:
 
-                    if(SingleTon.GetPlayerController().Inventory.Inventory[InventoryDraw.InventoryIndex] is EquippableItem item)
+                    if(SingleTon.GetPlayerController().Inventory.Inventory[InventoryDraw.InventoryIndex - 1] is EquippableItem item)
                     {
-                        item.Equip();
+                        if (SingleTon.GetPlayerController().Inventory.CheckIfItemsIsEquipped(item))
+                        {
+                            item.UnEquip();
+                        }
+                        else
+                        {
+                            item.Equip();
+                        }
+                        return InventoryMenuReturn.Everything;
                     }
                     break;
 
                 case ConsoleKey.Escape:
+                    Console.Clear();
+                    new MapDraw().DrawMap();
                     PlayManager.State = PlayManager.PreviousState;
                     return InventoryMenuReturn.None;
-                    break;
-                     
             }
             return InventoryMenuReturn.None;
         }
@@ -309,21 +331,19 @@ namespace AngleBorn.Player
                     switch (CombatDraw.MenuState)
                     {
                         case CombatDraw.ActionMenus.Ablilites:
-
+                            throw new NotImplementedException();
                             break;
 
                         case CombatDraw.ActionMenus.Items:
-
+                            throw new NotImplementedException();
                             break;
 
                         case CombatDraw.ActionMenus.Main:
                             switch (CombatDraw.IndexMenu)
                             {
                                 case 0:
-                                    DrawInfoBox.AddToBox("You attacked " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
-                                    SingleTon.GetPlayerController().CBM.enemyFighting.TakeDamage(SingleTon.GetPlayerController().Skills.Power.Buff + SingleTon.GetPlayerController().Skills.Power.ExtraAttack);
                                     SingleTon.GetPlayerController().CBM.enemyFighting.SetDamage();
-                                    SingleTon.GetPlayerController().Skills.Vitallity.TakeDamage(SingleTon.GetPlayerController().CBM.enemyFighting.Damage);
+                                    DrawInfoBox.AddToBox("You attacked " + SingleTon.GetPlayerController().CBM.enemyFighting.Name + " and dealt " + SingleTon.GetPlayerController().Skills.Vitallity.TakeDamage(SingleTon.GetPlayerController().CBM.enemyFighting.Damage) + ", "+ SingleTon.GetPlayerController().CBM.enemyFighting.Name + " hits back and damages you " + SingleTon.GetPlayerController().CBM.enemyFighting.TakeDamage(SingleTon.GetPlayerController().Skills.Power.Buff + SingleTon.GetPlayerController().Skills.Power.ExtraAttack));
                                     if (SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent == 0)
                                     {
 
@@ -382,9 +402,6 @@ namespace AngleBorn.Player
                     }
                     return CombatMenuReturn.All;
 
-                case ConsoleKey.H:
-                    SingleTon.GetPlayerController().Skills.Vitallity.Heal(1000);
-                    return CombatMenuReturn.None;
                 default:
                     return CombatMenuReturn.None;
             }

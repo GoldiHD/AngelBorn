@@ -163,6 +163,15 @@ namespace AngelBorn.World
             }
             while (true)
             {
+                bool foutain = false;
+                while (foutain == false)
+                {
+                    Location = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
+                    if(Tiles[Location.X, Location.Y].MyType == TileType.Normal)
+                    {
+                        Tiles[Location.X, Location.Y] = new BaseTile().CopyOf(tiles[2]);
+                    }
+                }
                 Location = new Cord { X = SingleTon.GetRandomNum(0, MapSize.X), Y = SingleTon.GetRandomNum(0, MapSize.Y) };
                 if (Tiles[Location.X, Location.Y].MyType == TileType.Normal)
                 {
@@ -289,7 +298,7 @@ namespace AngelBorn.World
             {
                 int x = SingleTon.GetRandomNum(0, MapSize.X);
                 int y = SingleTon.GetRandomNum(0, MapSize.Y);
-                Test = new Cord { X = x, Y = y  };
+                Test = new Cord { X = x, Y = y };
                 if (Tiles[Test.X, Test.Y].MyType == TileType.Inpassable)
                 {
                     Tiles[Test.X, Test.Y] = new BaseTile().CopyOf(tiles[SingleTon.GetRandomNum(0, tiles.Count)]);
