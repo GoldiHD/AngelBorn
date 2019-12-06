@@ -18,10 +18,10 @@ namespace AngelBorn.Player.Inventory
 
         public bool CheckIfItemsIsEquipped(EquippableItem item)
         {
-            for()
-            {
+            //for()
+            //{
 
-            }
+            //}
             return false;
         }
 

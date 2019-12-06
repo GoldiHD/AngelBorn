@@ -53,7 +53,7 @@ namespace AngelBorn.Menus
                 bool Return;
                 CW.Clear();
                 CW.WriteSlowNL("You wake up in darkness, the last thing you remember was your life slowly dissapering from your body after saving your best friend from getting crushed to death by a car", 20);
-                CW.WriteSlowNL("Even with the light faded there is still something out there", 20);
+                CW.WriteSlowNL("Even with the light fading there is still something out there", 20);
                 CW.WriteSlowNL("Suddenly a text appere in front of you...", 20);
                 CW.ReadKey();
                 CW.Clear();
