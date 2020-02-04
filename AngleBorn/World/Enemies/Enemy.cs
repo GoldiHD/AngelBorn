@@ -42,6 +42,11 @@ namespace AngelBorn.World.Enemies
             MaxHp = _totalhealth;
         }
 
+        public Enemy()
+        {
+
+        }
+
         public Enemy(int health, int damage, int level, string name, int gold, int xp, float fleechance, List<BaseItem> itemdrops)
         {
             Health = health;

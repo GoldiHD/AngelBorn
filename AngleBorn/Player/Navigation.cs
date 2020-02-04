@@ -223,11 +223,16 @@ namespace AngleBorn.Player
         {
             if (SingleTon.PercentChance(SingleTon.GetCursorInstance().CurrentTile.ChanceAtMonsters))
             {
-                PlayManager.State = PlayerState.Combat;
+                
                 SingleTon.GetPlayerController().CBM.CheckForEnemy(SingleTon.GetCursorInstance().CurrentTile);
-                DrawInfoBox.AddToBox("You have encountered a " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
-                new CombatDraw().Draw(new Cord { X = 2, Y = 2 });
-                return false;
+                if (SingleTon.GetPlayerController().CBM.enemyFighting != null)
+                {
+                    PlayManager.State = PlayerState.Combat;
+                    DrawInfoBox.AddToBox("You have encountered a " + SingleTon.GetPlayerController().CBM.enemyFighting.Name);
+                    new CombatDraw().Draw(new Cord { X = 2, Y = 2 });
+                    return false;
+                }
+                return true;
             }
             else
             {

@@ -22,8 +22,11 @@ namespace AngleBorn.Player
 
         public bool CheckForEnemy(BaseTile Tile)
         {
-            List<Enemy> enemiesToPick = SingleTon.GetEnemies().enemies.Where(x => x.SpawnableTiles.Any(y => y.TileName == Tile.TileName)).ToList();
-            enemyFighting = enemiesToPick[SingleTon.GetRandomNum(0, enemiesToPick.Count)];
+            List<Enemy> enemiesToPick = SingleTon.GetEnemies().enemies.Where(x => x.SpawnableTiles.Any(y => y.TileName == Tile.TileName)).Where(x => x.MinLevel < SingleTon.GetPlayerController().Level && x.MaxLevel > SingleTon.GetPlayerController().Level).ToList();
+            if (enemiesToPick.Count != 0)
+            {
+                enemyFighting = new Enemy().Copy(enemiesToPick[SingleTon.GetRandomNum(0, enemiesToPick.Count)]);
+            }
             return true;
         }
     }

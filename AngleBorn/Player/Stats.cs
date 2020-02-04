@@ -176,6 +176,16 @@ namespace AngelBorn.Player
             Mana = _lvl * 5;
             ManaCurrent = Mana;
         }
+
+        public void RegainMana(int amount)
+        {
+
+        }
+
+        public void DrainMana(int amount)
+        {
+
+        }
     }
 
     public class Luck //crit and loot

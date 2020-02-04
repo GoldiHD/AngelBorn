@@ -103,7 +103,10 @@ namespace AngleBorn.Grapihcs
                     break;
 
                 case InventoryDrawMenuState.Consumeable:
-                    throw new NotImplementedException();
+                    foreach (BaseItem element in (SingleTon.GetPlayerController().Inventory.Inventory.Where(x => x is ConsumableItem)))
+                    {
+                        ItemLine.Add(SizeAble(element.name, element.describtion, element.Effect, element.Value.ToString(), element.itemType.ToString(), ItemLine.Count));
+                    }
                     break;
 
                 case InventoryDrawMenuState.Misc:

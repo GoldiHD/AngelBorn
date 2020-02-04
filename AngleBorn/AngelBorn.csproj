@@ -50,6 +50,7 @@
     <Compile Include="Grapihcs\MapDraw.cs" />
     <Compile Include="Items\ArmorItem.cs" />
     <Compile Include="Items\BaseItem.cs" />
+    <Compile Include="Items\ConsumableEffects.cs" />
     <Compile Include="Items\ConsumableItem.cs" />
     <Compile Include="Items\EquippableItem.cs" />
     <Compile Include="Items\ItemManager.cs" />

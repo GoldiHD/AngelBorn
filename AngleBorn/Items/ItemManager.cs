@@ -27,9 +27,10 @@ namespace AngleBorn.Items
             AllItems.Add(new ArmorItem("Wooden Buckler Shield","A simple buckler", ItemType.Shield, 15, false, 1, ArmorLocation.Offhand));
             AllItems.Add(new ArmorItem("Wool Shirt", "A simple wool shirt with a few holes", ItemType.Armor, 2, false, 1, ArmorLocation.Chest));
             //Consumable
-            AllItems.Add(new ConsumableItem("Healing Potion", "Increases your helth", ItemType.Consumable, 20, true, ConsumableType.Healing, ));
+            AllItems.Add(new ConsumableItem("Small Healing Potion", "Restores some of your health", ItemType.Consumable, 20, true, new ConsumableItem.EffectAction(ConsumableEffects.Healing), 1));
+            AllItems.Add(new ConsumableItem("Small Mana Potion", "Restores some of your mana", ItemType.Consumable, 20, true, new ConsumableItem.EffectAction(ConsumableEffects.ReGainMana), 1));
             
-            //Trash
+            //Misc
         }
     }
 }

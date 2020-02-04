@@ -13,6 +13,9 @@ namespace AngelBorn.Grapihcs.MapGra
         public static Cord ViewSize = new Cord() { X = 21 , Y = 21 }; //always take uneven numbers
         private Cord StartDrawingPos = new Cord();
         private string Town= "";
+        private string[] Cor = { "╔", "╗", "╝", "╚" };
+        private string Side = "║";
+        private string Top = "═";
 
         public void DrawMap()
         {
@@ -36,8 +39,18 @@ namespace AngelBorn.Grapihcs.MapGra
             CW.SetPos(1, 1);
             CW.Write("[X: " + SingleTon.GetCursorInstance().Pos.X + " | Y: " + SingleTon.GetCursorInstance().Pos.Y + "] Steps: "+ SingleTon.GetPlayerController().Steps +" {" + SingleTon.GetCursorInstance().CurrentTile.TileName + "}");
             CW.SetPos(1, 2);
+            Console.Write(Cor[0]);
+            string line = "";
+            for(int i = 0; i < ViewSize.Y * 2 +1; i++)
+            {
+                line += Top;
+            }
+            Console.Write(line);
+            Console.Write(Cor[1]);
+            CW.SetPos(1, 3);
             for (int y = 0; y < ViewSize.Y; y++)
             {
+                Console.Write(Side);
                 for (int x = 0; x < ViewSize.X; x++)
                 {
 
@@ -91,10 +104,12 @@ namespace AngelBorn.Grapihcs.MapGra
 
                     }
                 }
+                Console.Write(" " +Side);
                 CW.WriteLine("");
                 CW.Write(" ");
                 
             }
+            Console.Write(Cor[3] + line + Cor[2]);
 
             if (SingleTon.GetCursorInstance().CurrentTile is CityTile)
             {
