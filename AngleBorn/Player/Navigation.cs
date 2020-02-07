@@ -9,6 +9,8 @@ using AngleBorn.Items;
 using AngleBorn.Menus;
 using AngleBorn.World.Tiles;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AngleBorn.Player
 {
@@ -223,7 +225,7 @@ namespace AngleBorn.Player
         {
             if (SingleTon.PercentChance(SingleTon.GetCursorInstance().CurrentTile.ChanceAtMonsters))
             {
-                
+
                 SingleTon.GetPlayerController().CBM.CheckForEnemy(SingleTon.GetCursorInstance().CurrentTile);
                 if (SingleTon.GetPlayerController().CBM.enemyFighting != null)
                 {
@@ -268,7 +270,7 @@ namespace AngleBorn.Player
                     return InventoryMenuReturn.DrawInventoryContainer;
 
                 case ConsoleKey.LeftArrow://minus
-                    if(InventoryDraw.state == InventoryDrawMenuState.All)
+                    if (InventoryDraw.state == InventoryDrawMenuState.All)
                     {
                         InventoryDraw.state = InventoryDrawMenuState.Misc;
                     }
@@ -279,7 +281,7 @@ namespace AngleBorn.Player
                     return InventoryMenuReturn.Everything;
 
                 case ConsoleKey.RightArrow://plus
-                    if(InventoryDraw.state == InventoryDrawMenuState.Misc)
+                    if (InventoryDraw.state == InventoryDrawMenuState.Misc)
                     {
                         InventoryDraw.state = InventoryDrawMenuState.All;
                     }
@@ -290,18 +292,64 @@ namespace AngleBorn.Player
                     return InventoryMenuReturn.Everything;
 
                 case ConsoleKey.Enter:
-
-                    if(SingleTon.GetPlayerController().Inventory.Inventory[InventoryDraw.InventoryIndex - 1] is EquippableItem item)
+                    List<BaseItem> SortedItems = new List<BaseItem>();
+                    switch (InventoryDraw.state)
                     {
-                        if (SingleTon.GetPlayerController().Inventory.CheckIfItemsIsEquipped(item))
-                        {
-                            item.UnEquip();
-                        }
-                        else
-                        {
-                            item.Equip();
-                        }
-                        return InventoryMenuReturn.Everything;
+                        case InventoryDrawMenuState.All:
+                            if (SingleTon.GetPlayerController().Inventory.Inventory[InventoryDraw.InventoryIndex - 1] is EquippableItem item)
+                            {
+                                if (SingleTon.GetPlayerController().Inventory.CheckIfItemsIsEquipped(item))
+                                {
+                                    item.UnEquip();
+                                }
+                                else
+                                {
+                                    item.Equip();
+                                }
+                                return InventoryMenuReturn.Everything;
+                            }
+                            break;
+
+                        case InventoryDrawMenuState.Armor:
+                            foreach (BaseItem element in (SingleTon.GetPlayerController().Inventory.Inventory.Where(x => x is ArmorItem).ToList()))
+                            {
+                                SortedItems.Add(element);
+                            }
+                            if (SortedItems[InventoryDraw.InventoryIndex - 1] is EquippableItem armor)
+                            {
+                                if (SingleTon.GetPlayerController().Inventory.CheckIfItemsIsEquipped(armor))
+                                {
+                                    armor.UnEquip();
+                                }
+                                else
+                                {
+                                    armor.Equip();
+                                }
+                                return InventoryMenuReturn.Everything;
+                            }
+                            break;
+
+                        case InventoryDrawMenuState.Consumeable:
+                            foreach (BaseItem element in (SingleTon.GetPlayerController().Inventory.Inventory.Where(x => x is ConsumableItem).ToList()))
+                            {
+                                SortedItems.Add(element);
+                            }
+                            ConsumableItem CI = (ConsumableItem)SortedItems[InventoryDraw.InventoryIndex - 1];
+                            CI.Apply();
+                            break;
+
+                        case InventoryDrawMenuState.Weapon:
+                            foreach (BaseItem element in (SingleTon.GetPlayerController().Inventory.Inventory.Where(x => x is WeaponItem).ToList()))
+                            {
+                                SortedItems.Add(element);
+                            }
+                            if (SortedItems[InventoryDraw.InventoryIndex - 1] is EquippableItem weapon)
+                            {
+                                if (SingleTon.GetPlayerController().Inventory.CheckIfItemsIsEquipped(weapon))
+                                { }
+                            }
+
+                            break;
                     }
                     break;
 
@@ -348,7 +396,7 @@ namespace AngleBorn.Player
                             {
                                 case 0:
                                     SingleTon.GetPlayerController().CBM.enemyFighting.SetDamage();
-                                    DrawInfoBox.AddToBox("You attacked " + SingleTon.GetPlayerController().CBM.enemyFighting.Name + " and dealt " + SingleTon.GetPlayerController().Skills.Vitallity.TakeDamage(SingleTon.GetPlayerController().CBM.enemyFighting.Damage) + ", "+ SingleTon.GetPlayerController().CBM.enemyFighting.Name + " hits back and damages you " + SingleTon.GetPlayerController().CBM.enemyFighting.TakeDamage(SingleTon.GetPlayerController().Skills.Power.Buff + SingleTon.GetPlayerController().Skills.Power.ExtraAttack));
+                                    DrawInfoBox.AddToBox("You attacked " + SingleTon.GetPlayerController().CBM.enemyFighting.Name + " and dealt " + SingleTon.GetPlayerController().Skills.Vitallity.TakeDamage(SingleTon.GetPlayerController().CBM.enemyFighting.Damage) + ", " + SingleTon.GetPlayerController().CBM.enemyFighting.Name + " hits back and damages you " + SingleTon.GetPlayerController().CBM.enemyFighting.TakeDamage(SingleTon.GetPlayerController().Skills.Power.Buff + SingleTon.GetPlayerController().Skills.Power.ExtraAttack));
                                     if (SingleTon.GetPlayerController().Skills.Vitallity.HealthCurrent == 0)
                                     {
 

@@ -54,6 +54,7 @@
     <Compile Include="Items\ConsumableItem.cs" />
     <Compile Include="Items\EquippableItem.cs" />
     <Compile Include="Items\ItemManager.cs" />
+    <Compile Include="Items\MiscItem.cs" />
     <Compile Include="Items\WeaponItem.cs" />
     <Compile Include="Menus\IntroMenu.cs" />
     <Compile Include="Menus\PlayManager.cs" />

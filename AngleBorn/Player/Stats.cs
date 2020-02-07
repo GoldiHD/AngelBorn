@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
 namespace AngelBorn.Player
 {
@@ -179,12 +177,34 @@ namespace AngelBorn.Player
 
         public void RegainMana(int amount)
         {
-
+            if (amount > 0)
+            {
+                if (ManaCurrent + amount > Mana)
+                {
+                    ManaCurrent = Mana;
+                }
+                else
+                {
+                    ManaCurrent += amount;
+                }
+            }
         }
 
-        public void DrainMana(int amount)
+        public bool DrainMana(int amount)
         {
-
+            if (amount >= 0)
+            {
+                if (ManaCurrent - amount >= 0)
+                {
+                    ManaCurrent -= amount;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
         }
     }
 

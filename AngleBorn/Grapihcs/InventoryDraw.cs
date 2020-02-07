@@ -110,7 +110,10 @@ namespace AngleBorn.Grapihcs
                     break;
 
                 case InventoryDrawMenuState.Misc:
-                    throw new NotImplementedException();
+                    foreach(BaseItem element in (SingleTon.GetPlayerController().Inventory.Inventory.Where(x => x is MiscItem)))
+                    {
+                        ItemLine.Add(SizeAble(element.name, element.describtion, "", element.Value.ToString(), element.itemType.ToString(), ItemLine.Count));
+                    }
                     break;
             }
             CW.FillOutStringBorder(ItemLine[0], true, InventoryContainerHeight.X, InventoryContainerHeight.Y + lineheight);

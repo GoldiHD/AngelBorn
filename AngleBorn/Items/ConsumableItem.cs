@@ -14,6 +14,11 @@ namespace AngleBorn.Items
 
         public ConsumableItem(string _name, string _description, ItemType _itemType, int _value, bool _usedInCombat, EffectAction _effectAction , int _strenght)
         {
+            name = _name;
+            describtion = _description;
+            itemType = _itemType;
+            Value = _value;
+            UseInCombat = _usedInCombat;
             strenght = _strenght;
             effectAction = _effectAction;
         }
