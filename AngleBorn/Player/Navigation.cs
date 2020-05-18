@@ -334,8 +334,11 @@ namespace AngleBorn.Player
                             {
                                 SortedItems.Add(element);
                             }
-                            ConsumableItem CI = (ConsumableItem)SortedItems[InventoryDraw.InventoryIndex - 1];
-                            CI.Apply();
+                            if (SortedItems.Count != 0)
+                            {
+                                ConsumableItem CI = (ConsumableItem)SortedItems[InventoryDraw.InventoryIndex - 1];
+                                CI.Apply();
+                            }
                             break;
 
                         case InventoryDrawMenuState.Weapon:

@@ -62,6 +62,7 @@
     <Compile Include="Player\CombatManager.cs" />
     <Compile Include="Player\Cursor.cs" />
     <Compile Include="Player\Inventory\InventoryManager.cs" />
+    <Compile Include="Player\IPlayerController.cs" />
     <Compile Include="Player\Navigation.cs" />
     <Compile Include="Player\PlayerClass\PlayerClass.cs" />
     <Compile Include="Player\PlayerController.cs" />

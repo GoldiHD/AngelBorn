@@ -11,7 +11,7 @@ using System.Text;
 
 namespace AngelBorn.Player
 {
-    class PlayerController
+    class PlayerController :IPlayerController
     {
         public int Steps;
         public BaseClass PlayerClass;
