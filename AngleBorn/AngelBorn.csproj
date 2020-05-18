@@ -68,6 +68,10 @@
     <Compile Include="Player\PlayerController.cs" />
     <Compile Include="Player\Race\PlayerRace.cs" />
     <Compile Include="Player\Stats.cs" />
+    <Compile Include="Player\StatsV2\IAttributeModifer.cs" />
+    <Compile Include="Player\StatsV2\StatPower.cs" />
+    <Compile Include="Player\StatsV2\StatsBase.cs" />
+    <Compile Include="Player\StatsV2\StatsManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ConsoleWriter.cs" />
